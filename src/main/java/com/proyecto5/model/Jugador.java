@@ -35,6 +35,11 @@ public class Jugador implements Serializable{
 	    private Actividad actividad;
 		
 		
+		@ManyToOne
+	    @JoinColumn(name = "id_resultado")
+	    private Resultados resultados;
+		
+		
 		
 	//en otra
 		@OneToOne(mappedBy = "jugador")

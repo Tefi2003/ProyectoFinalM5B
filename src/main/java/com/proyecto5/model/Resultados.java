@@ -34,6 +34,12 @@ public class Resultados implements Serializable{
 			@OneToOne(cascade=CascadeType.ALL)
 			@JoinColumn(name="id_nivel")
 			private Niveles niveles;
+			
+			
+			
+	//RELACION CON 
+			@OneToMany(mappedBy = "resultados")
+		    private List<Jugador> jugador;	
 	
 	
 
