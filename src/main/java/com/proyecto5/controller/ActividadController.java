@@ -93,7 +93,8 @@ public class ActividadController {
 				act.setAct_puntaje_min(actividadRb.getAct_puntaje_min());
 				act.setAct_puntaje_alcanzado(actividadRb.getAct_puntaje_alcanzado());
 				act.setAct_aprendizaje(actividadRb.getAct_aprendizaje());
-				act.setAct_estado(actividadRb.getAct_estado());
+				act.setAct_estado(actividadRb.isAct_estado());
+                                act.setAct_respuesta(actividadRb.getAct_respuesta());
 				return new ResponseEntity<>(actividadServ.save(actividadRb), HttpStatus.CREATED);
 			} catch (Exception e) {
 				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

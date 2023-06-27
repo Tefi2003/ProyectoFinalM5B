@@ -89,7 +89,8 @@ public class UsuariosController {
 				act.setUsu_correo(actividadRb.getUsu_correo());
 				act.setUsu_nivelacademico(actividadRb.getUsu_nivelacademico());
 				act.setUsu_fecha_inic(actividadRb.getUsu_fecha_inic());
-				act.setUsu_rol(actividadRb.getUsu_rol());
+                                act.setUsu_fecha_nacimiento(actividadRb.getUsu_fecha_nacimiento());
+                                act.setRoles(actividadRb.getRoles());
 				return new ResponseEntity<>(usuaServ.save(actividadRb), HttpStatus.CREATED);
 			} catch (Exception e) {
 				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
