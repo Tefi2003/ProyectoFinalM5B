@@ -25,6 +25,8 @@ public class Niveles implements Serializable {
     //RELACION CON ACTIVIDAD
     @OneToMany(mappedBy = "niveles")
     private List<Actividad> actividad;
+    
+    
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,6 +35,9 @@ public class Niveles implements Serializable {
 
     @Column(name = "nv_numero_nivel")
     private Integer nv_numero_nivel;
+    
+    
+    
 
     public Integer getId_nivel() {
         return id_nivel;
@@ -49,5 +54,15 @@ public class Niveles implements Serializable {
     public void setNv_numero_nivel(Integer nv_numero_nivel) {
         this.nv_numero_nivel = nv_numero_nivel;
     }
+
+	public List<Actividad> getActividad() {
+		return actividad;
+	}
+
+	public void setActividad(List<Actividad> actividad) {
+		this.actividad = actividad;
+	}
+    
+    
 
 }

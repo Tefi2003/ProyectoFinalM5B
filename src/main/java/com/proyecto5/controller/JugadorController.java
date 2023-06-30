@@ -16,21 +16,21 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.proyecto5.model.Usuarios;
-import com.proyecto5.service.UsuariosService;
+import com.proyecto5.model.Jugador;
+import com.proyecto5.service.JugadorService;
 
 @CrossOrigin(origins = { "*" })
 @RestController
 @RequestMapping("/api")
-public class UsuariosController {
+public class JugadorController {
 
 	@Autowired
-	private UsuariosService usuaServ;
+	private JugadorService jugadorServ;
 
-	@GetMapping("/usuarios/list")
-	public ResponseEntity<List<Usuarios>> list() {
+	@GetMapping("/jugador/list")
+	public ResponseEntity<List<Jugador>> list() {
 		try {
-			return new ResponseEntity<>(usuaServ.findByAll(), HttpStatus.OK);
+			return new ResponseEntity<>(jugadorServ.findByAll(), HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -39,10 +39,10 @@ public class UsuariosController {
 
 	
 	
-	@GetMapping("/usuarios/search/{id}")
-	public ResponseEntity<Usuarios> search(@PathVariable("id") Integer id) {
+	@GetMapping("/jugador/search/{id}")
+	public ResponseEntity<Jugador> search(@PathVariable("id") Integer id) {
 		try {
-			return new ResponseEntity<>(usuaServ.findById(id), HttpStatus.OK);
+			return new ResponseEntity<>(jugadorServ.findById(id), HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -51,10 +51,10 @@ public class UsuariosController {
 	
 	
 
-	@PostMapping("/usuarios/create")
-	public ResponseEntity<Usuarios> create(@RequestBody Usuarios actividad) {
+	@PostMapping("/jugador/create")
+	public ResponseEntity<Jugador> create(@RequestBody Jugador jugador) {
 		try {
-			return new ResponseEntity<>(usuaServ.save(actividad), HttpStatus.CREATED);
+			return new ResponseEntity<>(jugadorServ.save(jugador), HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -64,10 +64,10 @@ public class UsuariosController {
 	
 	
 
-	@DeleteMapping("/usuarios/delete/{id}")
+	@DeleteMapping("/jugador/delete/{id}")
 	public ResponseEntity<?> delete(@PathVariable("id") Integer id) {
 		try {
-			usuaServ.delete(id);
+			jugadorServ.delete(id);
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (DataIntegrityViolationException e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al elminar el Registro");
@@ -75,27 +75,19 @@ public class UsuariosController {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
-	
-	
 
-	@PutMapping("/usuarios/update/{id}")
-	public ResponseEntity<Usuarios> update(@RequestBody Usuarios actividadRb, @PathVariable("id") Integer id) {
-		Usuarios act = usuaServ.findById(id);
+	@PutMapping("/jugador/update/{id}")
+	public ResponseEntity<Jugador> update(@RequestBody Jugador actividadRb, @PathVariable("id") Integer id) {
+		Jugador act = jugadorServ.findById(id);
 
 		if (act == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		} else {
 			try {
-				act.setUsu_nombre(actividadRb.getUsu_nombre());
-				act.setUsu_contra(actividadRb.getUsu_contra());
-				act.setUsu_correo(actividadRb.getUsu_correo());
-				act.setUsu_nivelacademico(actividadRb.getUsu_nivelacademico());
-				act.setUsu_fecha_inic(actividadRb.getUsu_fecha_inic());
-				act.setUsu_fecha_nacimiento(actividadRb.getUsu_fecha_nacimiento());
-                act.setRoles(actividadRb.getRoles());
-                act.setJugador(actividadRb.getJugador());
-				return new ResponseEntity<>(usuaServ.save(actividadRb), HttpStatus.CREATED);
+				act.setPlayer_nombre(actividadRb.getPlayer_nombre());
+				act.setUsuarios(actividadRb.getUsuarios());
+				act.setActividad(actividadRb.getActividad());
+				return new ResponseEntity<>(jugadorServ.save(actividadRb), HttpStatus.CREATED);
 			} catch (Exception e) {
 				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 			}

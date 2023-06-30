@@ -14,6 +14,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -32,17 +33,18 @@ public class Progreso implements Serializable{
 	
 	
 	//FK
-			@OneToOne(cascade=CascadeType.ALL)
-			@JoinColumn(name="player_id")
-			private Jugador jugador;
+			@ManyToOne
+		    @JoinColumn(name = "player_id")
+		    private Jugador jugador;
 			
 			
 			
-	//en otra
-			@OneToOne(mappedBy = "progreso")
-			private ProgresoAprendizaje progresoAprendizaje;
 			
 			
+	//en otra			
+			//RELACION CON pro apre
+		    @OneToMany(mappedBy = "progreso")
+		    private List<ProgresoAprendizaje> progresoAprendizaje;
 
 	
 	@Id

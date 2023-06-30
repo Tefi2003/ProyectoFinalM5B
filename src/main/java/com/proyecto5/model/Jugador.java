@@ -30,19 +30,28 @@ public class Jugador implements Serializable {
     @JoinColumn(name = "id_usuario")
     private Usuarios usuarios;
 
-    //FK ACTIVIDAD
-    @ManyToOne
-    @JoinColumn(name = "id_activ")
-    private Actividad actividad;
-
-    //RELACION CON PROGRESO
-    @OneToOne(mappedBy = "jugador")
-    private Progreso progreso;
     
-    //RELACION CON RESULTADOS
+    //FK ACTIVIDAD
+      @OneToMany(mappedBy = "jugador")
+      private List<Actividad> actividad;
+      
+      
+      
+    
+    
+    //RELACION EN OTRA
     @OneToMany(mappedBy = "jugador")
     private List<Resultados> resultados;
+  
 
+    @OneToMany(mappedBy = "jugador")
+    private List<Progreso> progreso;
+    
+    
+    
+    
+    
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "player_id")
@@ -50,6 +59,10 @@ public class Jugador implements Serializable {
 
     @Column(name = "player_nombre")
     private String player_nombre;
+    
+    
+    
+    
 
     public Integer getPlayer_id() {
         return player_id;
@@ -67,4 +80,24 @@ public class Jugador implements Serializable {
         this.player_nombre = player_nombre;
     }
 
+	public Usuarios getUsuarios() {
+		return usuarios;
+	}
+
+	public void setUsuarios(Usuarios usuarios) {
+		this.usuarios = usuarios;
+	}
+
+	public List<Actividad> getActividad() {
+		return actividad;
+	}
+
+	public void setActividad(List<Actividad> actividad) {
+		this.actividad = actividad;
+	}
+
+    
+    
+    
+    
 }

@@ -33,6 +33,9 @@ public class Usuarios implements Serializable {
     @ManyToOne
     @JoinColumn(name = "id_rol")
     private Roles roles;
+    
+    
+    
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -56,6 +59,9 @@ public class Usuarios implements Serializable {
     
     @Column(name = "usu_fecha_nacimiento")
     private Date usu_fecha_nacimiento;
+    
+    
+    
 
     public Integer getId_usuario() {
         return id_usuario;
@@ -104,4 +110,30 @@ public class Usuarios implements Serializable {
     public void setUsu_fecha_inic(Timestamp usu_fecha_inic) {
         this.usu_fecha_inic = usu_fecha_inic;
     }
+
+	public Date getUsu_fecha_nacimiento() {
+		return usu_fecha_nacimiento;
+	}
+
+	public void setUsu_fecha_nacimiento(Date usu_fecha_nacimiento) {
+		this.usu_fecha_nacimiento = usu_fecha_nacimiento;
+	}
+
+	public Jugador getJugador() {
+		return jugador;
+	}
+
+	public void setJugador(Jugador jugador) {
+		this.jugador = jugador;
+	}
+
+	public Roles getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Roles roles) {
+		this.roles = roles;
+	}
+    
+    
 }

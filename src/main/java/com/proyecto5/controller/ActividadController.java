@@ -94,6 +94,10 @@ public class ActividadController {
 				act.setAct_puntaje_alcanzado(actividadRb.getAct_puntaje_alcanzado());
 				act.setAct_aprendizaje(actividadRb.getAct_aprendizaje());
 				act.setAct_estado(actividadRb.isAct_estado());
+				act.setAct_respuesta(actividadRb.getAct_respuesta());
+				act.setNiveles(actividadRb.getNiveles());
+				act.setRecursos(actividadRb.getRecursos());
+				act.setTipoAprendizaje(actividadRb.getTipoAprendizaje());
                                 act.setAct_respuesta(actividadRb.getAct_respuesta());
 				return new ResponseEntity<>(actividadServ.save(actividadRb), HttpStatus.CREATED);
 			} catch (Exception e) {
