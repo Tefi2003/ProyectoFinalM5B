@@ -32,13 +32,11 @@ public class Jugador implements Serializable {
 
     
     //FK ACTIVIDAD
-      @OneToMany(mappedBy = "jugador")
-      private List<Actividad> actividad;
+    @ManyToOne
+    @JoinColumn(name = "id_activ")
+    private Actividad actividad;
       
       
-      
-    
-    
     //RELACION EN OTRA
     @OneToMany(mappedBy = "jugador")
     private List<Resultados> resultados;
@@ -87,17 +85,6 @@ public class Jugador implements Serializable {
 	public void setUsuarios(Usuarios usuarios) {
 		this.usuarios = usuarios;
 	}
-
-	public List<Actividad> getActividad() {
-		return actividad;
-	}
-
-	public void setActividad(List<Actividad> actividad) {
-		this.actividad = actividad;
-	}
-
-    
-    
     
     
 }

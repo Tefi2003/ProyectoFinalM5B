@@ -1,5 +1,7 @@
 package com.proyecto5.model;
 
+import java.util.List;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -8,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -32,10 +35,14 @@ public class ProgresoAprendizaje {
     @JoinColumn(name = "id_tipo_apren")
     private TipoAprendizaje tipoAprendizaje;
 
-    //FK RESULTADO
+    
     @ManyToOne
     @JoinColumn(name = "id_resultado")
     private Resultados resultados;
+    
+    
+    
+    
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

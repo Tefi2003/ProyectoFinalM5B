@@ -86,7 +86,6 @@ public class JugadorController {
 			try {
 				act.setPlayer_nombre(actividadRb.getPlayer_nombre());
 				act.setUsuarios(actividadRb.getUsuarios());
-				act.setActividad(actividadRb.getActividad());
 				return new ResponseEntity<>(jugadorServ.save(actividadRb), HttpStatus.CREATED);
 			} catch (Exception e) {
 				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

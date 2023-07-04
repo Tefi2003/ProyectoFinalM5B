@@ -22,9 +22,10 @@ import lombok.Data;
 @Table(name = "niveles")
 public class Niveles implements Serializable {
 
-    //RELACION CON ACTIVIDAD
+	//RELACION CON Actividad
     @OneToMany(mappedBy = "niveles")
     private List<Actividad> actividad;
+
     
     
 

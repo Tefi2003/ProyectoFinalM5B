@@ -3,6 +3,8 @@ package com.proyecto5.model;
 import java.io.Serializable;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.ManyToOne;
 
 import jakarta.persistence.Column;
@@ -40,10 +42,11 @@ public class Actividad implements Serializable {
     @JoinColumn(name = "id_nivel")
     private Niveles niveles;
 
-    //RELACION CON JUGADOR
-    @ManyToOne
-    @JoinColumn(name = "player_id")
-    private Jugador jugador;
+    //RELACION CON JUGADOR    
+    @JsonIgnore
+    @OneToMany(mappedBy = "actividad")
+    private List<Jugador> jugador; 
+    
     
     //RELACION CON RESULTADOS
     @OneToMany(mappedBy = "actividad")

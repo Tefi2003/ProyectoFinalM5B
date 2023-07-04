@@ -5,6 +5,8 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -28,10 +30,6 @@ import lombok.Data;
 @Table(name = "resultados")
 public class Resultados implements Serializable {
 
-    //FK NIVELES
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_nivel")
-    private Niveles niveles;
     
     //FK ACTIVIDAD
     @ManyToOne
@@ -41,11 +39,16 @@ public class Resultados implements Serializable {
     //FK JUGADOR
     @ManyToOne
     @JoinColumn(name = "player_id")
-    private Jugador jugador;
+    private Jugador jugador; 
     
-    //RELACION 
+    
+    
+    @JsonIgnore
     @OneToMany(mappedBy = "resultados")
-    private List<ProgresoAprendizaje> progresoAprendizaje;
+    private List<ProgresoAprendizaje> progresoAprendizaje; 
+    
+    
+    
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
