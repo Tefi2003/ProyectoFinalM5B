@@ -1,4 +1,4 @@
-package com.proyecto5.controller;
+ package com.proyecto5.controller;
 
 import java.util.List;
 
@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.proyecto5.model.Roles;
+import com.proyecto5.repository.RolesRepository;
 import com.proyecto5.service.RolesService;
+import java.util.Optional;
 
 @CrossOrigin(origins = { "*" })
 @RestController
@@ -26,6 +28,8 @@ public class RolesController {
 
 	@Autowired
 	private RolesService actividadServ;
+          @Autowired
+private RolesRepository rolesRepository;
 
 	@GetMapping("/roles/list")
 	public ResponseEntity<List<Roles>> list() {
@@ -47,7 +51,25 @@ public class RolesController {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
+        
+        @GetMapping("/roles/{id}")
+public ResponseEntity<Roles> obtenerRolPorId(@PathVariable("id") Integer id) {
+    Optional<Roles> rol = rolesRepository.findById(id);
+    
+    if (rol.isPresent()) {
+        return ResponseEntity.ok(rol.get());
+    } else {
+        return ResponseEntity.notFound().build();
+    }
+}
+
+//////////////////////obtener rolees
+  @GetMapping("/roles")
+    public List<Roles> obtenerRoles() {
+        return rolesRepository.findAll();
+    }
+
+                                                                
 	
 	
 

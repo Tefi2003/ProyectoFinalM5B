@@ -6,4 +6,9 @@ import com.proyecto5.model.Roles;
 
 public interface RolesRepository extends JpaRepository<Roles, Integer>{
 
+    ////////////////////////////////////
+//     Roles findByRolNombre(String rolNombre);
+    
+    
+    
 }

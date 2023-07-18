@@ -62,6 +62,8 @@ public class Usuarios implements Serializable {
     
     
     
+    
+    
 
     public Integer getId_usuario() {
         return id_usuario;
@@ -135,5 +137,7 @@ public class Usuarios implements Serializable {
 		this.roles = roles;
 	}
     
+        
+        
     
 }

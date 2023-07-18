@@ -6,4 +6,5 @@ import com.proyecto5.model.Usuarios;
 
 public interface UsuariosRepository extends JpaRepository<Usuarios, Integer>{
 
+    
 }
