@@ -2,6 +2,7 @@ package com.proyecto5.controller;
 
 import java.util.List;
 
+import com.proyecto5.service.TipoAprendizajeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.proyecto5.model.TipoAprendizaje;
-import com.proyecto5.service.TipoAprendizajeService;
 
 @CrossOrigin(origins = { "*" })
 @RestController
@@ -25,7 +25,7 @@ import com.proyecto5.service.TipoAprendizajeService;
 public class TipoAprendizajeController {
 	
 	@Autowired
-	private TipoAprendizajeService tipoServ;
+	private TipoAprendizajeServiceImpl tipoServ;
 
 	@GetMapping("/tipoapren/list")
 	public ResponseEntity<List<TipoAprendizaje>> list() {
@@ -93,4 +93,9 @@ public class TipoAprendizajeController {
 		}
 	}
 
+	/*
+	@GetMapping("/tipoapren/count")
+	public Long contador(){
+		return tipoServ.count();
+ 	} */
 }

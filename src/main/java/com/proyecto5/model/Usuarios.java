@@ -4,23 +4,13 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.Data;
 
-@Getter
 @Data
-@Setter
 @Entity
 @Table(name = "usuarios")
 public class Usuarios implements Serializable {
@@ -33,9 +23,6 @@ public class Usuarios implements Serializable {
     @ManyToOne
     @JoinColumn(name = "id_rol")
     private Roles roles;
-    
-    
-    
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -59,11 +46,15 @@ public class Usuarios implements Serializable {
     
     @Column(name = "usu_fecha_nacimiento")
     private Date usu_fecha_nacimiento;
-    
-    
-    
-    
-    
+
+
+    //Generacion de usu_fecha_inic cuando se cree una tabla
+    @PrePersist
+    public void prePersist() {
+        usu_fecha_inic = new Timestamp(System.currentTimeMillis());
+    }
+
+
 
     public Integer getId_usuario() {
         return id_usuario;

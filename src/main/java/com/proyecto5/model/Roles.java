@@ -15,9 +15,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
 @Data
-@Setter
 @Entity
 @Table(name = "roles")
 public class Roles implements Serializable {
@@ -33,21 +31,5 @@ public class Roles implements Serializable {
 
     @Column(name = "rol_nombre")
     private String rol_nombre;
-
-    public Integer getId_rol() {
-        return id_rol;
-    }
-
-    public void setId_rol(Integer id_rol) {
-        this.id_rol = id_rol;
-    }
-
-    public String getRol_nombre() {
-        return rol_nombre;
-    }
-
-    public void setRol_nombre(String rol_nombre) {
-        this.rol_nombre = rol_nombre;
-    }
 
 }

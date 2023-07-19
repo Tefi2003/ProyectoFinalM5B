@@ -8,7 +8,7 @@ import com.proyecto5.model.Recursos;
 import com.proyecto5.repository.RecursosRepository;
 
 @Service
-public class RecursosServiceImpl extends GenericServiceImpl<Recursos, Integer> implements RecursosService {
+public class RecursosServiceImpl extends GenericServiceImpl<Recursos, Integer> implements GenericService<Recursos, Integer> {
 	@Autowired
     private RecursosRepository progresoRepository;
 

@@ -8,7 +8,7 @@ import com.proyecto5.model.Niveles;
 import com.proyecto5.repository.NivelesRepository;
 
 @Service
-public class NivelesServiceImpl extends GenericServiceImpl<Niveles, Integer> implements NivelesService {
+public class NivelesServiceImpl extends GenericServiceImpl<Niveles, Integer> implements GenericService<Niveles, Integer> {
 	@Autowired
     private NivelesRepository nivelesRepository;
 

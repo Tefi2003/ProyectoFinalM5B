@@ -8,7 +8,7 @@ import com.proyecto5.model.Jugador;
 import com.proyecto5.repository.JugadorRepository;
 
 @Service
-public class JugadorServiceImpl extends GenericServiceImpl<Jugador, Integer> implements JugadorService {
+public class JugadorServiceImpl extends GenericServiceImpl<Jugador, Integer> implements GenericService<Jugador, Integer> {
 	@Autowired
     private JugadorRepository jugadorRepository;
 

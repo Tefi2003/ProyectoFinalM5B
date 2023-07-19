@@ -8,7 +8,7 @@ import com.proyecto5.model.TipoAprendizaje;
 import com.proyecto5.repository.TipoAprendizajeRepository;
 
 @Service
-public class TipoAprendizajeServiceImpl extends GenericServiceImpl<TipoAprendizaje, Integer> implements TipoAprendizajeService {
+public class TipoAprendizajeServiceImpl extends GenericServiceImpl<TipoAprendizaje, Integer> implements GenericService<TipoAprendizaje, Integer> {
 	@Autowired
     private TipoAprendizajeRepository tipoAprendizajeRepository;
 

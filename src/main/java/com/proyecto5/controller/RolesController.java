@@ -2,6 +2,7 @@
 
 import java.util.List;
 
+import com.proyecto5.service.RolesServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.proyecto5.model.Roles;
 import com.proyecto5.repository.RolesRepository;
-import com.proyecto5.service.RolesService;
+
 import java.util.Optional;
 
 @CrossOrigin(origins = { "*" })
@@ -27,7 +28,7 @@ import java.util.Optional;
 public class RolesController {
 
 	@Autowired
-	private RolesService actividadServ;
+	private RolesServiceImpl actividadServ;
           @Autowired
 private RolesRepository rolesRepository;
 

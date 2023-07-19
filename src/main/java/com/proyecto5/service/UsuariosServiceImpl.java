@@ -7,8 +7,10 @@ import org.springframework.stereotype.Service;
 import com.proyecto5.model.Usuarios;
 import com.proyecto5.repository.UsuariosRepository;
 
+import java.util.List;
+
 @Service
-public class UsuariosServiceImpl extends GenericServiceImpl<Usuarios, Integer> implements UsuariosService {
+public class UsuariosServiceImpl extends GenericServiceImpl<Usuarios, Integer> implements GenericService<Usuarios, Integer> {
 	@Autowired
     private UsuariosRepository usuariosRepository;
 
@@ -17,4 +19,13 @@ public class UsuariosServiceImpl extends GenericServiceImpl<Usuarios, Integer> i
         return usuariosRepository;
     }
 
+    public Long contarUsuariosPorRol(Integer roleId) {
+        return usuariosRepository.countByRoleId(roleId);
+    }
+    public Long countUsuariosByRole(Integer roleName) {
+        return usuariosRepository.countByRoleId(roleName);
+    }
+    public List<Usuarios> findByRole(String role) {
+        return usuariosRepository.findByRoles_Role(role);
+    }
 }

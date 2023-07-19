@@ -6,11 +6,9 @@ import org.springframework.stereotype.Service;
 
 import com.proyecto5.model.Actividad;
 import com.proyecto5.repository.ActividadRepository;
-import com.proyecto5.service.ActividadService;
-import com.proyecto5.service.GenericServiceImpl;
 
 @Service
-public class ActividadServiceImpl extends GenericServiceImpl<Actividad, Integer> implements ActividadService {
+public class ActividadServiceImpl extends GenericServiceImpl<Actividad, Integer> implements GenericService<Actividad, Integer> {
 	@Autowired
     private ActividadRepository actividadRepository;
 

@@ -8,7 +8,7 @@ import com.proyecto5.model.Roles;
 import com.proyecto5.repository.RolesRepository;
 
 @Service
-public class RolesServiceImpl extends GenericServiceImpl<Roles, Integer> implements RolesService {
+public class RolesServiceImpl extends GenericServiceImpl<Roles, Integer> implements GenericService<Roles, Integer> {
 	@Autowired
     private RolesRepository rolesRepository;
 

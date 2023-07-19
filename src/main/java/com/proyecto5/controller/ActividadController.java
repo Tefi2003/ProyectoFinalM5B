@@ -2,6 +2,7 @@ package com.proyecto5.controller;
 
 import java.util.List;
 
+import com.proyecto5.service.ActividadServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -17,8 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.proyecto5.model.Actividad;
-import com.proyecto5.service.ActividadService;
-
 
 
 @CrossOrigin(origins = { "*" })
@@ -27,7 +26,7 @@ import com.proyecto5.service.ActividadService;
 public class ActividadController {
 
 	@Autowired
-	private ActividadService actividadServ;
+	private ActividadServiceImpl actividadServ;
 
 	@GetMapping("/actividad/list")
 	public ResponseEntity<List<Actividad>> list() {
@@ -39,8 +38,7 @@ public class ActividadController {
 
 	}
 
-	
-	
+
 	@GetMapping("/actividad/search/{id}")
 	public ResponseEntity<Actividad> search(@PathVariable("id") Integer id) {
 		try {
@@ -49,9 +47,6 @@ public class ActividadController {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
-	
-	
 
 	@PostMapping("/actividad/create")
 	public ResponseEntity<Actividad> create(@RequestBody Actividad actividad) {
@@ -62,9 +57,6 @@ public class ActividadController {
 		}
 
 	}
-	
-	
-	
 
 	@DeleteMapping("/actividad/delete/{id}")
 	public ResponseEntity<?> delete(@PathVariable("id") Integer id) {
@@ -105,4 +97,11 @@ public class ActividadController {
 			}
 		}
 	}
+
+	/*
+	@Override
+    public CrudRepository<TipoAprendizaje, Integer> getDao() {
+        return tipoAprendizajeRepository;
+	}
+	 */
 }

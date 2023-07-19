@@ -1,8 +1,8 @@
 package com.proyecto5.controller;
 
-import com.proyecto5.model.Roles;
 import java.util.List;
 
+import com.proyecto5.service.UsuariosServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -18,9 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.proyecto5.model.Usuarios;
-import com.proyecto5.repository.RolesRepository;
-import com.proyecto5.repository.UsuariosRepository;
-import com.proyecto5.service.UsuariosService;
 
 @CrossOrigin(origins = {"*"})
 @RestController
@@ -28,13 +25,12 @@ import com.proyecto5.service.UsuariosService;
 public class UsuariosController {
 
     @Autowired
-    private UsuariosService usuaServ;
+    private final UsuariosServiceImpl usuaServ;
 
-    @Autowired
-    private RolesRepository rolesRepository;
+    public UsuariosController(UsuariosServiceImpl usuaServ) {
+        this.usuaServ = usuaServ;
+    }
 
-    @Autowired
-    private UsuariosRepository usuariosRepository;
 
     @GetMapping("/usuarios/list")
     public ResponseEntity<List<Usuarios>> list() {
@@ -62,7 +58,7 @@ public class UsuariosController {
     public ResponseEntity<Usuarios> create(@RequestBody Usuarios usuario) {
         try {
             // Guarda el usuario en la base de datos
-            Usuarios nuevoUsuario = usuariosRepository.save(usuario);
+            Usuarios nuevoUsuario = usuaServ.save(usuario);
 
             return new ResponseEntity<>(nuevoUsuario, HttpStatus.CREATED);
         } catch (Exception e) {
@@ -96,7 +92,7 @@ public class UsuariosController {
                 act.setUsu_contra(actividadRb.getUsu_contra());
                 act.setUsu_correo(actividadRb.getUsu_correo());
                 act.setUsu_nivelacademico(actividadRb.getUsu_nivelacademico());
-                act.setUsu_fecha_inic(actividadRb.getUsu_fecha_inic());
+                //act.setUsu_fecha_inic(actividadRb.getUsu_fecha_inic());
                 act.setUsu_fecha_nacimiento(actividadRb.getUsu_fecha_nacimiento());
                 act.setRoles(actividadRb.getRoles());
 
@@ -105,6 +101,26 @@ public class UsuariosController {
             } catch (Exception e) {
                 return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
+        }
+    }
+
+    @GetMapping("/usuarios/count/admin")
+    public ResponseEntity<Long> countUsuariosAdmin() {
+        try {
+            Long count = usuaServ.countUsuariosByRole(1);
+            return new ResponseEntity<>(count, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/usuarios/count/jugador")
+    public ResponseEntity<Long> countUsuariosJugador() {
+        try {
+            Long count = usuaServ.countUsuariosByRole(2);
+            return new ResponseEntity<>(count, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

@@ -23,9 +23,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.Data;
 
-@Getter
 @Data
-@Setter
 @Entity
 @Table(name = "resultados")
 public class Resultados implements Serializable {
@@ -63,37 +61,5 @@ public class Resultados implements Serializable {
 
     @Column(name = "re_hora")
     private Date re_hora;
-
-    public Integer getId_resultado() {
-        return id_resultado;
-    }
-
-    public void setId_resultado(Integer id_resultado) {
-        this.id_resultado = id_resultado;
-    }
-
-    public Integer getRe_puntaje() {
-        return re_puntaje;
-    }
-
-    public void setRe_puntaje(Integer re_puntaje) {
-        this.re_puntaje = re_puntaje;
-    }
-
-    public Timestamp getRe_fecha() {
-        return re_fecha;
-    }
-
-    public void setRe_fecha(Timestamp re_fecha) {
-        this.re_fecha = re_fecha;
-    }
-
-    public Date getRe_hora() {
-        return re_hora;
-    }
-
-    public void setRe_hora(Date re_hora) {
-        this.re_hora = re_hora;
-    }
 
 }

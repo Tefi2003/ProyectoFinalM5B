@@ -18,9 +18,8 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
+
 @Data
-@Setter
 @Entity
 @Table(name = "jugador")
 public class Jugador implements Serializable {
@@ -44,12 +43,7 @@ public class Jugador implements Serializable {
 
     @OneToMany(mappedBy = "jugador")
     private List<Progreso> progreso;
-    
-    
-    
-    
-    
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "player_id")
@@ -57,34 +51,6 @@ public class Jugador implements Serializable {
 
     @Column(name = "player_nombre")
     private String player_nombre;
-    
-    
-    
-    
 
-    public Integer getPlayer_id() {
-        return player_id;
-    }
 
-    public void setPlayer_id(Integer player_id) {
-        this.player_id = player_id;
-    }
-
-    public String getPlayer_nombre() {
-        return player_nombre;
-    }
-
-    public void setPlayer_nombre(String player_nombre) {
-        this.player_nombre = player_nombre;
-    }
-
-	public Usuarios getUsuarios() {
-		return usuarios;
-	}
-
-	public void setUsuarios(Usuarios usuarios) {
-		this.usuarios = usuarios;
-	}
-    
-    
 }

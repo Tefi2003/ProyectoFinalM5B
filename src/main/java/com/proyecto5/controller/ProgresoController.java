@@ -2,6 +2,7 @@ package com.proyecto5.controller;
 
 import java.util.List;
 
+import com.proyecto5.service.ProgresoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.proyecto5.model.Progreso;
-import com.proyecto5.service.ProgresoService;
 
 @CrossOrigin(origins = { "*" })
 @RestController
@@ -25,7 +25,7 @@ import com.proyecto5.service.ProgresoService;
 public class ProgresoController {
 	
 	@Autowired
-	private ProgresoService progresoServ;
+	private ProgresoServiceImpl progresoServ;
 
 	@GetMapping("/progreso/list")
 	public ResponseEntity<List<Progreso>> list() {

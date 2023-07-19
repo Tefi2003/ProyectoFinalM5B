@@ -8,7 +8,7 @@ import com.proyecto5.model.Progreso;
 import com.proyecto5.repository.ProgresoRepository;
 
 @Service
-public class ProgresoServiceImpl extends GenericServiceImpl<Progreso, Integer> implements ProgresoService {
+public class ProgresoServiceImpl extends GenericServiceImpl<Progreso, Integer> implements GenericService<Progreso, Integer> {
 	@Autowired
     private ProgresoRepository progresoRepository;
 

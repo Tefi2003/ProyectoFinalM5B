@@ -18,9 +18,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.Data;
 
-@Getter
 @Data
-@Setter
 @Entity
 @Table(name = "progresoAprendizaje")
 public class ProgresoAprendizaje {
@@ -39,11 +37,7 @@ public class ProgresoAprendizaje {
     @ManyToOne
     @JoinColumn(name = "id_resultado")
     private Resultados resultados;
-    
-    
-    
-    
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_progapre")
@@ -54,29 +48,5 @@ public class ProgresoAprendizaje {
 
     @Column(name = "progapr_punntaje_aprendizaje")
     private Integer progapr_punntaje_aprendizaje;
-
-    public Integer getId_progapre() {
-        return id_progapre;
-    }
-
-    public void setId_progapre(Integer id_progapre) {
-        this.id_progapre = id_progapre;
-    }
-
-    public String getProgapr_nombre() {
-        return progapr_nombre;
-    }
-
-    public void setProgapr_nombre(String progapr_nombre) {
-        this.progapr_nombre = progapr_nombre;
-    }
-
-    public Integer getProgapr_punntaje_aprendizaje() {
-        return progapr_punntaje_aprendizaje;
-    }
-
-    public void setProgapr_punntaje_aprendizaje(Integer progapr_punntaje_aprendizaje) {
-        this.progapr_punntaje_aprendizaje = progapr_punntaje_aprendizaje;
-    }
 
 }
