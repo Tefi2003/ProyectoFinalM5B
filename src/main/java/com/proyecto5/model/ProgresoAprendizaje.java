@@ -24,7 +24,7 @@ import lombok.Data;
 public class ProgresoAprendizaje {
 
     //FK PROGRESO
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_progress")
     private Progreso progreso;
 
