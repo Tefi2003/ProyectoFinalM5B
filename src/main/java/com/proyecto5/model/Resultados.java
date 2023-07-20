@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
@@ -33,20 +34,12 @@ public class Resultados implements Serializable {
     @ManyToOne
     @JoinColumn(name = "id_activ")
     private Actividad actividad;
-
-    //FK JUGADOR
-    @ManyToOne
-    @JoinColumn(name = "player_id")
-    private Jugador jugador; 
     
-    
-    
+    /*
     @JsonIgnore
     @OneToMany(mappedBy = "resultados")
     private List<ProgresoAprendizaje> progresoAprendizaje; 
-    
-    
-    
+*/
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

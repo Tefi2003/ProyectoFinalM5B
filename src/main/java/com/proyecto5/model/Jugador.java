@@ -2,6 +2,7 @@ package com.proyecto5.model;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -29,21 +30,24 @@ public class Jugador implements Serializable {
     @JoinColumn(name = "id_usuario")
     private Usuarios usuarios;
 
-    
     //FK ACTIVIDAD
     @ManyToOne
     @JoinColumn(name = "id_activ")
     private Actividad actividad;
-      
-      
-    //RELACION EN OTRA
-    @OneToMany(mappedBy = "jugador")
-    private List<Resultados> resultados;
-  
 
+    //RELACION CON progreso
+    @OneToOne
+    @JoinColumn(name = "id_progress")
+    private Progreso progreso;
+/*
+    @ManyToOne
+    @JoinColumn(name = "id_progress")
+    private Progreso progreso;
+ */
+/*
     @OneToMany(mappedBy = "jugador")
     private List<Progreso> progreso;
-
+*/
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "player_id")

@@ -12,6 +12,10 @@ public class ActividadServiceImpl extends GenericServiceImpl<Actividad, Integer>
 	@Autowired
     private ActividadRepository actividadRepository;
 
+    public ActividadServiceImpl(ActividadRepository actividadRepository) {
+        this.actividadRepository = actividadRepository;
+    }
+
     @Override
     public CrudRepository<Actividad, Integer> getDao() {
         return actividadRepository;

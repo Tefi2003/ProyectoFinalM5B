@@ -2,7 +2,11 @@ package com.proyecto5.controller;
 
 import java.util.List;
 
+import com.proyecto5.model.Recursos;
+import com.proyecto5.model.TipoAprendizaje;
 import com.proyecto5.service.ActividadServiceImpl;
+import com.proyecto5.service.RecursosServiceImpl;
+import com.proyecto5.service.TipoAprendizajeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -28,11 +32,22 @@ public class ActividadController {
 	@Autowired
 	private ActividadServiceImpl actividadServ;
 
+	@Autowired
+	private RecursosServiceImpl recursosService;
+
+	@Autowired
+	private TipoAprendizajeServiceImpl tipoAprendizajeService;
+
+	public ActividadController(ActividadServiceImpl actividadServ) {
+		this.actividadServ = actividadServ;
+	}
+
 	@GetMapping("/actividad/list")
 	public ResponseEntity<List<Actividad>> list() {
 		try {
 			return new ResponseEntity<>(actividadServ.findByAll(), HttpStatus.OK);
 		} catch (Exception e) {
+
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
@@ -88,9 +103,15 @@ public class ActividadController {
 				act.setAct_estado(actividadRb.isAct_estado());
 				act.setAct_respuesta(actividadRb.getAct_respuesta());
 				act.setNiveles(actividadRb.getNiveles());
-				act.setRecursos(actividadRb.getRecursos());
-				act.setTipoAprendizaje(actividadRb.getTipoAprendizaje());
-                                act.setAct_respuesta(actividadRb.getAct_respuesta());
+				act.setAct_respuesta(actividadRb.getAct_respuesta());
+
+				Recursos recursosAsociados = recursosService.findById(actividadRb.getRecursos().getId_recurso());
+				act.setRecursos(recursosAsociados);
+
+				TipoAprendizaje tipoAprendizaje = tipoAprendizajeService.findById(actividadRb.getTipoAprendizaje().getId_tipo_apren());
+				act.setTipoAprendizaje(tipoAprendizaje);
+
+				//act.setTipoAprendizaje(actividadRb.getTipoAprendizaje());
 				return new ResponseEntity<>(actividadServ.save(actividadRb), HttpStatus.CREATED);
 			} catch (Exception e) {
 				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

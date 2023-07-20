@@ -1,5 +1,6 @@
 package com.proyecto5.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -10,11 +11,11 @@ import java.util.List;
 @Entity
 @Table(name = "niveles")
 public class Niveles implements Serializable {
-
+/*
     //RELACION CON Actividad
     @OneToMany(mappedBy = "niveles")
     private List<Actividad> actividad;
-
+*/
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

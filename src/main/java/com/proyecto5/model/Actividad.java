@@ -1,33 +1,24 @@
 package com.proyecto5.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import jakarta.persistence.ManyToOne;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
-
-import lombok.Getter;
-import lombok.Setter;
-import lombok.Data;
 
 @Data
 @Entity
 @Table(name = "actividad")
 public class Actividad implements Serializable {
-
-    //fk: RELACION CON RECURSOS
+    /*
+        //fk: RELACION CON RECURSOS
+        @ManyToOne
+        @JoinColumn(name = "id_recurso")
+        private Recursos recursos;
+    */
     @ManyToOne
-    @JoinColumn(name = "id_recurso")
+    @JoinColumn(name = "recurso_id")
     private Recursos recursos;
 
     //fk: RELACION CON TIPO APRENDIZAJE
@@ -39,19 +30,18 @@ public class Actividad implements Serializable {
     @ManyToOne
     @JoinColumn(name = "id_nivel")
     private Niveles niveles;
-
+/*
     //RELACION CON JUGADOR    
     @JsonIgnore
     @OneToMany(mappedBy = "actividad")
-    private List<Jugador> jugador; 
-    
-    
+    private List<Jugador> jugador;
+*/
+/*
     //RELACION CON RESULTADOS
     @OneToMany(mappedBy = "actividad")
     private List<Resultados> resultados;
+*/
 
-    
-    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_activ")
@@ -80,7 +70,7 @@ public class Actividad implements Serializable {
 
     @Column(name = "act_estado")
     private boolean act_estado;
-    
+
     @Column(name = "act_respuesta")
     private String act_respuesta;
 

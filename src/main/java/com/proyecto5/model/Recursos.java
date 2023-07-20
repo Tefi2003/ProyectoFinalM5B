@@ -3,6 +3,7 @@ package com.proyecto5.model;
 import java.io.Serializable;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,11 +21,11 @@ import lombok.Data;
 @Entity
 @Table(name = "recursos")
 public class Recursos implements Serializable {
-
+/*
     //RELACION CON Actividad
     @OneToMany(mappedBy = "recursos")
     private List<Actividad> actividad;
-
+*/
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_recurso")
@@ -32,12 +33,6 @@ public class Recursos implements Serializable {
 
     @Column(name = "rec_enlaces")
     private String rec_enlaces;
-
-    @Column(name = "rec_pdfs")
-    private Blob rec_pdfs;
-    
-    @Column (name = "rec_imagenes")
-    private Blob rec_imagenes;
 
 }
 

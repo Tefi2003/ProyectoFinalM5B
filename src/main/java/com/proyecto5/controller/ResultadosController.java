@@ -2,6 +2,8 @@ package com.proyecto5.controller;
 
 import java.util.List;
 
+import com.proyecto5.model.Actividad;
+import com.proyecto5.service.ActividadServiceImpl;
 import com.proyecto5.service.ResultadosServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -26,6 +28,9 @@ public class ResultadosController {
 
 	@Autowired
 	private ResultadosServiceImpl usuaServ;
+
+	@Autowired
+	private ActividadServiceImpl actividadService;
 
 	@GetMapping("/resultados/list")
 	public ResponseEntity<List<Resultados>> list() {
@@ -87,6 +92,10 @@ public class ResultadosController {
 				act.setRe_fecha(actividadRb.getRe_fecha());
 				act.setRe_hora(actividadRb.getRe_hora());
 				act.setRe_puntaje(actividadRb.getRe_puntaje());
+
+				Actividad actividad = actividadService.findById(actividadRb.getActividad().getId_activ());
+				act.setActividad(actividad);
+
 				return new ResponseEntity<>(usuaServ.save(actividadRb), HttpStatus.CREATED);
 			} catch (Exception e) {
 				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

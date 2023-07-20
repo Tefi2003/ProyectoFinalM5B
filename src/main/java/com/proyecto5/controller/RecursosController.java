@@ -84,7 +84,6 @@ public class RecursosController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		} else {
 			try {
-				niv.setRec_pdfs(nivelRb.getRec_pdfs());
 				niv.setRec_enlaces(nivelRb.getRec_enlaces());
 				return new ResponseEntity<>(recursosServ.save(nivelRb), HttpStatus.CREATED);
 			} catch (Exception e) {

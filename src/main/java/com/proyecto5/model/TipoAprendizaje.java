@@ -20,15 +20,16 @@ import lombok.Data;
 @Entity
 @Table(name = "tipoAprendizaje")
 public class TipoAprendizaje implements Serializable {
-
+/*
     //RELACION CON ACTIVIIDAD
     @OneToMany(mappedBy = "tipoAprendizaje")
     private List<Actividad> actividad;
-
+*/
+/*
     //RELACION CON PROGRESO_APRENDIZAJE
     @OneToOne(mappedBy = "tipoAprendizaje")
     private ProgresoAprendizaje progresoAprendizaje;
-
+*/
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_tipo_apren")

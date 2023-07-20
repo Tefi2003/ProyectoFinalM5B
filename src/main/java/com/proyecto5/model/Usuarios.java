@@ -16,7 +16,7 @@ import lombok.Data;
 public class Usuarios implements Serializable {
 
     //RELACION CON JUGADOR
-    @OneToOne(mappedBy = "usuarios")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "usuarios")
     private Jugador jugador;
 
     //FK: RELACION CON ROL
