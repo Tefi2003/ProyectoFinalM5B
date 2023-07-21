@@ -17,4 +17,5 @@ public class TipoAprendizajeServiceImpl extends GenericServiceImpl<TipoAprendiza
         return tipoAprendizajeRepository;
     }
 
+
 }

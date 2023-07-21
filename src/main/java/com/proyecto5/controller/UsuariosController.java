@@ -41,6 +41,28 @@ public class UsuariosController {
         }
 
     }
+    /*Sirve para listar solo los usuarios que sean administradores para la auntenticacion*/
+    @GetMapping("/usuarios/list/admin")
+    public ResponseEntity<List<Usuarios>> getUsuariosAdmin() {
+        try {
+            List<Usuarios> usuariosAdmin = usuaServ.findByRole("Administrador");
+            return new ResponseEntity<>(usuariosAdmin, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    //Lista solo los usuarios que son jugadores sirva para la inactividad de usuarios y para
+    //aunteticacion
+    @GetMapping("/usuarios/list/Jugador")
+    public ResponseEntity<List<Usuarios>> getUsuariosJugador() {
+        try {
+            List<Usuarios> usuarioJugador = usuaServ
+                    .findByRole("Jugador");
+            return new ResponseEntity<>(usuarioJugador, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
     @GetMapping("/usuarios/search/{id}")
     public ResponseEntity<Usuarios> search(@PathVariable("id") Integer id) {
@@ -123,4 +145,29 @@ public class UsuariosController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    //INICIAR SESION
+    //Iniciar Sesión
+    @GetMapping("/usuarios/{user}/{pass}")
+    public Usuarios show(@PathVariable String user,@PathVariable String pass) {
+        return usuaServ.findByUserPass(user, pass);
+    }
+    //Autenticar Usuarios
+    /*@PostMapping("/usuarios/authenticate")
+    public ResponseEntity<Usuarios> authenticateUser(@RequestBody Usuarios usuario) {
+        try {
+            Usuarios authenticatedUser = usuaServ.authenticateUser(usuario.getUsu_correo(), usuario.getUsu_contra());
+
+            if (authenticatedUser != null) {
+                // Return the authenticated user object if authentication is successful.
+                return new ResponseEntity<>(authenticatedUser, HttpStatus.OK);
+            } else {
+                // Return a 401 Unauthorized status if authentication fails.
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }*/
+    /*Metodo para obtener los usuarios jugadores*/
 }

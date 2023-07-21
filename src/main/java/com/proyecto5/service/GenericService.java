@@ -1,5 +1,7 @@
 package com.proyecto5.service;
 
+import com.proyecto5.model.Usuarios;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -12,5 +14,7 @@ public interface GenericService <T, ID extends Serializable> {
     public T findById(ID id);
 
     public void delete(ID id);
+
+
 
 }

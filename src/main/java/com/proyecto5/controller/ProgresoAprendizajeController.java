@@ -36,6 +36,16 @@ public class ProgresoAprendizajeController {
 		}
 
 	}
+	/*@GetMapping("/progresoAprendizaje/listByJugador/{jugadorId}")
+	public ResponseEntity<List<ProgresoAprendizaje>> listByJugador(@PathVariable("jugadorId") Integer jugadorId) {
+		try {
+			// Aquí asumo que tienes un servicio para obtener los progresos de aprendizaje por el ID del jugador
+			List<ProgresoAprendizaje> progresosAprendizaje = proaprServ.findByJugadorId(jugadorId);
+			return new ResponseEntity<>(progresosAprendizaje, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}*/
 
 	
 	

@@ -2,6 +2,7 @@ package com.proyecto5.controller;
 
 import java.util.List;
 
+import com.proyecto5.model.Jugador;
 import com.proyecto5.service.ProgresoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
