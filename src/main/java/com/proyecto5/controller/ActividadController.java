@@ -38,6 +38,8 @@ public class ActividadController {
 	@Autowired
 	private TipoAprendizajeServiceImpl tipoAprendizajeService;
 
+
+
 	public ActividadController(ActividadServiceImpl actividadServ) {
 		this.actividadServ = actividadServ;
 	}

@@ -16,4 +16,5 @@ public class JugadorServiceImpl extends GenericServiceImpl<Jugador, Integer> imp
     public CrudRepository<Jugador, Integer> getDao() {
         return jugadorRepository;
     }
+
 }

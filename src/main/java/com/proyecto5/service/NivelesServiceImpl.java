@@ -16,4 +16,5 @@ public class NivelesServiceImpl extends GenericServiceImpl<Niveles, Integer> imp
     public CrudRepository<Niveles, Integer> getDao() {
         return nivelesRepository;
     }
+
 }
