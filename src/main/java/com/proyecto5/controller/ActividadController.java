@@ -2,9 +2,11 @@ package com.proyecto5.controller;
 
 import java.util.List;
 
+import com.proyecto5.model.Niveles;
 import com.proyecto5.model.Recursos;
 import com.proyecto5.model.TipoAprendizaje;
 import com.proyecto5.service.ActividadServiceImpl;
+import com.proyecto5.service.NivelesServiceImpl;
 import com.proyecto5.service.RecursosServiceImpl;
 import com.proyecto5.service.TipoAprendizajeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +40,8 @@ public class ActividadController {
 	@Autowired
 	private TipoAprendizajeServiceImpl tipoAprendizajeService;
 
-
+	@Autowired
+	private NivelesServiceImpl nivelesService;
 
 	public ActividadController(ActividadServiceImpl actividadServ) {
 		this.actividadServ = actividadServ;
@@ -104,16 +107,14 @@ public class ActividadController {
 				act.setAct_aprendizaje(actividadRb.getAct_aprendizaje());
 				act.setAct_estado(actividadRb.isAct_estado());
 				act.setAct_respuesta(actividadRb.getAct_respuesta());
-				act.setNiveles(actividadRb.getNiveles());
-				act.setAct_respuesta(actividadRb.getAct_respuesta());
+				Niveles nivelAsociado = nivelesService.findById(actividadRb.getNiveles().getId_nivel());
+				act.setNiveles(nivelAsociado);
 
 				Recursos recursosAsociados = recursosService.findById(actividadRb.getRecursos().getId_recurso());
 				act.setRecursos(recursosAsociados);
 
 				TipoAprendizaje tipoAprendizaje = tipoAprendizajeService.findById(actividadRb.getTipoAprendizaje().getId_tipo_apren());
 				act.setTipoAprendizaje(tipoAprendizaje);
-
-				//act.setTipoAprendizaje(actividadRb.getTipoAprendizaje());
 				return new ResponseEntity<>(actividadServ.save(act), HttpStatus.CREATED);
 			} catch (Exception e) {
 				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

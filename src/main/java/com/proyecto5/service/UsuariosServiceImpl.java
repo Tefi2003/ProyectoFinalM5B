@@ -1,6 +1,8 @@
 package com.proyecto5.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.proyecto5.model.Usuarios;
@@ -15,9 +17,13 @@ public class UsuariosServiceImpl implements UsuarioService{
 	@Autowired
     private UsuariosRepository usuariosRepository;
 
-    public Long contarUsuariosPorRol(Integer roleId) {
-        return usuariosRepository.countByRoleId(roleId);
+    private final PasswordEncoder passwordEncoder;
+
+    public UsuariosServiceImpl(UsuariosRepository usuariosRepository) {
+        this.usuariosRepository = usuariosRepository;
+        this.passwordEncoder = new BCryptPasswordEncoder();
     }
+
     public Long countUsuariosByRole(Integer roleName) {
         return usuariosRepository.countByRoleId(roleName);
     }
@@ -27,11 +33,18 @@ public class UsuariosServiceImpl implements UsuarioService{
 
     @Override
     public List<Usuarios> findByAll() {
-        return (List<Usuarios>) usuariosRepository.findAll();
+        return usuariosRepository.findAll();
     }
 
     @Override
     public Usuarios save(Usuarios usuarios) {
+        return usuariosRepository.save(usuarios);
+    }
+
+    @Override
+    public Usuarios saveCrypt(Usuarios usuarios) {
+        String passwordCypt = this.passwordEncoder.encode(usuarios.getUsu_contra());
+        usuarios.setUsu_contra(passwordCypt);
         return usuariosRepository.save(usuarios);
     }
 
