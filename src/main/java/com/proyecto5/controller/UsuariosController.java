@@ -58,10 +58,11 @@ public class UsuariosController {
         }
     }*/
 
+    //EN ESTE METODO LOGIN deben usar para que pueda identificar al usuario que tiene la contraseñas encriptadas.
     @GetMapping("/usuarios/login")
     public ResponseEntity<String> login(@RequestParam String correo, @RequestParam String password) {
         // Buscar el usuario en la base de datos por su nombre de usuario (o cualquier campo que sea único)
-        Usuarios usuario = encryService.findUsuarioByUsername(correo);
+        Usuarios usuario = encryService.findUsuarioByCorrreo(correo);
 
         if (usuario == null) {
             return new ResponseEntity<>("Usuario no encontrado", HttpStatus.NOT_FOUND);
@@ -90,11 +91,12 @@ public class UsuariosController {
     /////////////////////////////la ultima
     
     ////////////////////se obtiene el rol
+    //ESTOS DOS METODOS CREATE CREAN EL USUARIO CON LA CONTRASEÑA ENCRIPTADA AUTOMATICAMENTE
     @PostMapping("/usuarios/create")
     public ResponseEntity<Usuarios> create(@RequestBody Usuarios usuario) {
         try {
             // Guarda el usuario en la base de datos
-            Usuarios nuevoUsuario = usuaServ.save(usuario);
+            Usuarios nuevoUsuario = usuaServ.saveCrypt(usuario);
 
             return new ResponseEntity<>(nuevoUsuario, HttpStatus.CREATED);
         } catch (Exception e) {
