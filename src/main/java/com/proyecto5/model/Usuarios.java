@@ -2,7 +2,6 @@ package com.proyecto5.model;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.Date;
 
 import jakarta.persistence.*;
 
@@ -19,7 +18,7 @@ public class Usuarios implements Serializable {
 */
     //FK: RELACION CON ROL
     @ManyToOne
-    @JoinColumn(name = "id_rol")
+    @JoinColumn(name = "id_rol", nullable = false)
     private Roles roles;
 
     @Id
@@ -33,16 +32,16 @@ public class Usuarios implements Serializable {
     @Column(length = 255, name = "usu_contra", nullable = false)
     private String usu_contra;
 
-    @Column(name = "usu_correo")
+    @Column(name = "usu_correo", unique = true, nullable = false)
     private String correo;
 
-    @Column(name = "usu_nivelacademico")
+    @Column(name = "usu_nivelacademico", nullable = false)
     private String usu_nivelacademico;
 
-    @Column(name = "usu_fecha_inic")
+    @Column(name = "usu_fecha_inic", nullable = false)
     private Timestamp usu_fecha_inic;
     
-    @Column(name = "usu_fecha_nacimiento")
+    @Column(name = "usu_fecha_nacimiento", nullable = false)
     private String usu_fecha_nacimiento;
 
 

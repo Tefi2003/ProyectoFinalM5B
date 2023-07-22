@@ -1,6 +1,8 @@
 package com.proyecto5.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.proyecto5.model.Roles;
 import com.proyecto5.service.EncryServiceImpl;
@@ -58,13 +60,16 @@ public class UsuariosController {
         }
     }*/
 
-    @GetMapping("/usuarios/login")
-    public ResponseEntity<String> login(@RequestParam String correo, @RequestParam String password) {
+    @GetMapping("/usuarios/login/{correo}/{password}")
+    public ResponseEntity<Map<String, String>> login(@PathVariable String correo, @PathVariable String password) {
         // Buscar el usuario en la base de datos por su nombre de usuario (o cualquier campo que sea único)
         Usuarios usuario = encryService.findUsuarioByCorrreo(correo);
 
         if (usuario == null) {
-            return new ResponseEntity<>("Usuario no encontrado", HttpStatus.NOT_FOUND);
+            // Usuario no encontrado, devolver mensaje de error
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Usuario no encontrado");
+            return new ResponseEntity<>(response, HttpStatus.OK);
         }
 
         // Obtener la contraseña encriptada almacenada en la base de datos para este usuario
@@ -72,11 +77,18 @@ public class UsuariosController {
 
         // Verificar la contraseña ingresada con la contraseña almacenada en la base de datos
         if (encryService.verifyPassword(password, storedPassword)) {
-            return new ResponseEntity<>("Inicio de sesión exitoso", HttpStatus.OK);
+            // Inicio de sesión exitoso, devolver mensaje de éxito
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Inicio de sesión exitoso");
+            return new ResponseEntity<>(response, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("Contraseña incorrecta", HttpStatus.UNAUTHORIZED);
+            // Contraseña incorrecta, devolver mensaje de error
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Contraseña incorrecta");
+            return new ResponseEntity<>(response, HttpStatus.OK);
         }
     }
+
 
     @GetMapping("/usuarios/search/{id}")
     public ResponseEntity<Usuarios> search(@PathVariable("id") Integer id) {
@@ -98,7 +110,6 @@ public class UsuariosController {
 
             return new ResponseEntity<>(nuevoUsuario, HttpStatus.CREATED);
         } catch (Exception e) {
-            System.out.println(e.getCause());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -153,6 +164,27 @@ public class UsuariosController {
                 return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }
+    }
+
+    @PutMapping("/usuarios/{correo}/password")
+    public ResponseEntity<String> updatePassword(@PathVariable String correo, @RequestBody String newPassword) {
+        // Buscar el usuario en la base de datos por su ID
+        Usuarios usuario = encryService.findUsuarioByCorrreo(correo);
+
+        if (usuario == null) {
+            return new ResponseEntity<>("Usuario no encontrado", HttpStatus.NOT_FOUND);
+        }
+
+        // Encriptar la nueva contraseña antes de almacenarla en la base de datos
+        String hashedPassword = encryService.encryPassword(newPassword);
+
+        // Actualizar la contraseña del usuario con la nueva contraseña encriptada
+        usuario.setUsu_contra(hashedPassword);
+
+        // Guardar el usuario actualizado en la base de datos
+        usuaServ.save(usuario);
+
+        return new ResponseEntity<>("Contraseña actualizada exitosamente", HttpStatus.OK);
     }
 
     @GetMapping("/usuarios/count/admin")
