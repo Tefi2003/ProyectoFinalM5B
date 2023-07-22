@@ -85,7 +85,7 @@ public class NivelesController {
 		} else {
 			try {
 				niv.setNv_numero_nivel(nivelRb.getNv_numero_nivel());
-				return new ResponseEntity<>(nivelesServ.save(nivelRb), HttpStatus.CREATED);
+				return new ResponseEntity<>(nivelesServ.save(niv), HttpStatus.CREATED);
 			} catch (Exception e) {
 				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 			}

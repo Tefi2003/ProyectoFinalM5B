@@ -94,7 +94,7 @@ public class TipoAprendizajeController {
 			try {
 				act.setTapr_nombre(actividadRb.getTapr_nombre());
 				act.setTapr_progreso(actividadRb.getTapr_progreso());
-				return new ResponseEntity<>(tipoServ.save(actividadRb), HttpStatus.CREATED);
+				return new ResponseEntity<>(tipoServ.save(act), HttpStatus.CREATED);
 			} catch (Exception e) {
 				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 			}

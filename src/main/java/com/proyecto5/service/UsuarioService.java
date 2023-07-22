@@ -14,4 +14,6 @@ public interface UsuarioService {
     public Usuarios findById(Integer id);
 
     public void delete(Integer id);
+
+    public Usuarios findByUserPass(String user, String pass);
 }

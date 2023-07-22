@@ -98,7 +98,7 @@ public class ProgresoAprendizajeController {
 			try {
 				proapr.setProgapr_nombre(proapreRb.getProgapr_nombre());
 				proapr.setProgapr_punntaje_aprendizaje(proapreRb.getProgapr_punntaje_aprendizaje());
-				return new ResponseEntity<>(proaprServ.save(proapreRb), HttpStatus.CREATED);
+				return new ResponseEntity<>(proaprServ.save(proapr), HttpStatus.CREATED);
 			} catch (Exception e) {
 				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 			}

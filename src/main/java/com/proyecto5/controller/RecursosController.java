@@ -85,7 +85,7 @@ public class RecursosController {
 		} else {
 			try {
 				niv.setRec_enlaces(nivelRb.getRec_enlaces());
-				return new ResponseEntity<>(recursosServ.save(nivelRb), HttpStatus.CREATED);
+				return new ResponseEntity<>(recursosServ.save(niv), HttpStatus.CREATED);
 			} catch (Exception e) {
 				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 			}

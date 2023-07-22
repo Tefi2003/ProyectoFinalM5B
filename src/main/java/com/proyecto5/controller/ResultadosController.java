@@ -96,7 +96,7 @@ public class ResultadosController {
 				Actividad actividad = actividadService.findById(actividadRb.getActividad().getId_activ());
 				act.setActividad(actividad);
 
-				return new ResponseEntity<>(usuaServ.save(actividadRb), HttpStatus.CREATED);
+				return new ResponseEntity<>(usuaServ.save(act), HttpStatus.CREATED);
 			} catch (Exception e) {
 				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 			}

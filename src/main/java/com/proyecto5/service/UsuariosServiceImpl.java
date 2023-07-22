@@ -6,7 +6,9 @@ import org.springframework.stereotype.Service;
 import com.proyecto5.model.Usuarios;
 import com.proyecto5.repository.UsuariosRepository;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UsuariosServiceImpl implements UsuarioService{
@@ -42,11 +44,19 @@ public class UsuariosServiceImpl implements UsuarioService{
     public void delete(Integer id) {
         usuariosRepository.deleteById(id);
     }
-/*
-    @Override
-    public Usuarios findByCorreo(String correo) {
-        return usuariosRepository.findByCorreo(correo);
-    }
 
- */
+    //Encuentra el correo y clave del usuario para que se pueda logear
+    public Usuarios findByUserPass(String user, String pass) {
+        ArrayList<Usuarios> allUsers = new ArrayList();
+        allUsers=(ArrayList<Usuarios>) usuariosRepository.findAll();
+        Optional<Usuarios> result = allUsers.stream()
+                .filter(u -> u.getCorreo().equals(user) && u.getUsu_contra().equals(pass))
+                .findFirst();
+        if(result.isPresent()) {
+            return result.get();
+        } else {
+            System.out.println("Inexistente");
+            return null;
+        }
+    }
 }

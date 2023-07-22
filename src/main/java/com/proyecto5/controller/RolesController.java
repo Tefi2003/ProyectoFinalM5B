@@ -108,7 +108,7 @@ public ResponseEntity<Roles> obtenerRolPorId(@PathVariable("id") Integer id) {
 		} else {
 			try {
 				act.setRol_nombre(actividadRb.getRol_nombre());
-				return new ResponseEntity<>(actividadServ.save(actividadRb), HttpStatus.CREATED);
+				return new ResponseEntity<>(actividadServ.save(act), HttpStatus.CREATED);
 			} catch (Exception e) {
 				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 			}

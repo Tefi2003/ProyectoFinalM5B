@@ -90,7 +90,7 @@ public class ProgresoController {
 				pro.setProg_hora_promd(progreosRb.getProg_hora_promd());
 				pro.setProg_fecha_init(progreosRb.getProg_fecha_init());
 				pro.setProg_fecha_act(progreosRb.getProg_fecha_act());
-				return new ResponseEntity<>(progresoServ.save(progreosRb), HttpStatus.CREATED);
+				return new ResponseEntity<>(progresoServ.save(pro), HttpStatus.CREATED);
 			} catch (Exception e) {
 				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 			}
