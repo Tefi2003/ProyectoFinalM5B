@@ -12,6 +12,10 @@ public class EncryServiceImpl implements EncryptSservice{
     @Autowired
     private UsuariosRepository usuariosRepository;
 
+    public EncryServiceImpl(UsuariosRepository usuariosRepository) {
+        this.usuariosRepository = usuariosRepository;
+    }
+
     @Override
     public String encryPassword(String password) {
         return BCrypt.hashpw(password, BCrypt.gensalt());
@@ -22,7 +26,7 @@ public class EncryServiceImpl implements EncryptSservice{
         return BCrypt.checkpw(originalPassowrd, hasPassword);
     }
 
-    public Usuarios findUsuarioByUsername(String correo) {
+    public Usuarios findUsuarioByCorrreo(String correo) {
         // Implementa la lógica para buscar y devolver un objeto Usuarios según el nombre de usuario (o cualquier campo único)
         return this.usuariosRepository.findByCorreo(correo);
     }

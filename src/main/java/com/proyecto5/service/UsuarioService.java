@@ -9,6 +9,8 @@ public interface UsuarioService {
 
     public Usuarios save(Usuarios usuarios);
 
+    public Usuarios saveCrypt(Usuarios usuarios);
+
     public Usuarios findById(Integer id);
 
     public void delete(Integer id);
