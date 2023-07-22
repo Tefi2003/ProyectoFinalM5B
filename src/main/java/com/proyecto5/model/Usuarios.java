@@ -6,19 +6,17 @@ import java.util.Date;
 
 import jakarta.persistence.*;
 
-import lombok.Getter;
-import lombok.Setter;
 import lombok.Data;
 
 @Data
 @Entity
 @Table(name = "usuarios")
 public class Usuarios implements Serializable {
-
+/*
     //RELACION CON JUGADOR
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "usuarios")
     private Jugador jugador;
-
+*/
     //FK: RELACION CON ROL
     @ManyToOne
     @JoinColumn(name = "id_rol")
@@ -36,7 +34,7 @@ public class Usuarios implements Serializable {
     private String usu_contra;
 
     @Column(name = "usu_correo")
-    private String usu_correo;
+    private String correo;
 
     @Column(name = "usu_nivelacademico")
     private String usu_nivelacademico;

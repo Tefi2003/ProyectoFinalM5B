@@ -20,4 +20,5 @@ public class ActividadServiceImpl extends GenericServiceImpl<Actividad, Integer>
     public CrudRepository<Actividad, Integer> getDao() {
         return actividadRepository;
     }
+
 }

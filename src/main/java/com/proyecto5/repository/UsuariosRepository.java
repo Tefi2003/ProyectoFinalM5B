@@ -13,6 +13,4 @@ public interface UsuariosRepository extends JpaRepository<Usuarios, Integer>{
     Long countByRoleId(@Param("roleId") Integer roleId);
     @Query("SELECT u FROM Usuarios u WHERE u.roles.rol_nombre = :rol")
     List<Usuarios> findByRoles_Role(@Param("rol") String rol);
-
-
 }
