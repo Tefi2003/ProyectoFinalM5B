@@ -44,21 +44,6 @@ public class UsuariosController {
         }
 
     }
-/*
-    @GetMapping("/usuarios/login")
-    public ResponseEntity<Usuarios> login(@RequestParam String correo) {
-        try {
-            Usuarios usuario = usuaServ.findByCorreo(correo);
-            if (usuario != null) {
-                return new ResponseEntity<>(usuario, HttpStatus.OK);
-            } else {
-                // Usuario no encontrado
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }*/
 
     @GetMapping("/usuarios/login/{correo}/{password}")
     public ResponseEntity<Map<String, String>> login(@PathVariable String correo, @PathVariable String password) {
@@ -89,6 +74,31 @@ public class UsuariosController {
         }
     }
 
+    @GetMapping("/usuarios/login2")
+    public ResponseEntity<?> login2(@RequestParam String correo, @RequestParam String password) {
+        // Buscar el usuario en la base de datos por su nombre de usuario (o cualquier campo que sea único)
+        Usuarios usuario = encryService.findUsuarioByCorrreo(correo);
+
+        if (usuario == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario no encontrado");
+        }
+
+        // Obtener la contraseña encriptada almacenada en la base de datos para este usuario
+        String storedPassword = usuario.getUsu_contra();
+
+        // Verificar la contraseña ingresada con la contraseña almacenada en la base de datos
+        if (encryService.verifyPassword(password, storedPassword)) {
+            // Si la autenticación es exitosa, devuelve un objeto JSON con la información del usuario y su rol
+            Map<String, Object> response = new HashMap<>();
+            response.put("correo", correo);
+            response.put("rol", usuario.getRoles().getId_rol()); //Obtiene el rol para redireccionar la pagina en angular dependiendo
+            //del rol
+
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Contraseña incorrecta");
+        }
+    }
 
     @GetMapping("/usuarios/search/{id}")
     public ResponseEntity<Usuarios> search(@PathVariable("id") Integer id) {
@@ -130,7 +140,6 @@ public class UsuariosController {
 
         return new ResponseEntity<>(nuevoUsuario, HttpStatus.CREATED);
     }
-
 
     @DeleteMapping("/usuarios/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable("id") Integer id) {
