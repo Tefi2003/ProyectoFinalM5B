@@ -3,6 +3,7 @@ package com.proyecto5.model;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import lombok.Data;
@@ -11,11 +12,12 @@ import lombok.Data;
 @Entity
 @Table(name = "usuarios")
 public class Usuarios implements Serializable {
-/*
+
     //RELACION CON JUGADOR
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "usuarios")
+    @JsonIgnore
+    @OneToOne(mappedBy = "usuarios", cascade = CascadeType.ALL)
     private Jugador jugador;
-*/
+
     //FK: RELACION CON ROL
     @ManyToOne
     @JoinColumn(name = "id_rol", nullable = false)

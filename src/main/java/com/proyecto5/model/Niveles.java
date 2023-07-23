@@ -1,11 +1,9 @@
 package com.proyecto5.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.List;
 
 @Data
 @Entity
@@ -13,6 +11,7 @@ import java.util.List;
 public class Niveles implements Serializable {
 /*
     //RELACION CON Actividad
+    @JsonIgnore
     @OneToMany(mappedBy = "niveles")
     private List<Actividad> actividad;
 */

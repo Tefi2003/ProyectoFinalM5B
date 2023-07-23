@@ -2,14 +2,10 @@ package com.proyecto5.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.io.Serializable;
 import java.sql.Time;
 import java.sql.Timestamp;
-import java.util.Date;
-import java.util.List;
 
 @Data
 @Entity
@@ -17,10 +13,12 @@ import java.util.List;
 public class Progreso implements Serializable {
 /*
     //RELACION CON pro apre
+    @JsonIgnore
     @OneToMany(mappedBy = "progreso")
     private List<ProgresoAprendizaje> progresoAprendizaje;
 /*
     //RELACION CON Jugador
+    @JsonIgnore
     @OneToOne(mappedBy = "progreso")
     private Jugador jugador;
 */
