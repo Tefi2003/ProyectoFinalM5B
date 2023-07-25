@@ -19,18 +19,18 @@ public class ProgresoAprendizaje implements Serializable {
     private Progreso progreso;
 */
     //FK TIPO APRENDIZAJE
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "id_tipo_apren")
     private TipoAprendizaje tipoAprendizaje;
 
     @ManyToOne
     @JoinColumn(name = "id_resultado")
     private Resultados resultados;
-/*
+
     @JsonIgnore
     @OneToMany(mappedBy = "progresoAprendizaje")
     private List<Progreso> progreso;
-*/
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_progapre")
@@ -41,5 +41,4 @@ public class ProgresoAprendizaje implements Serializable {
 
     @Column(name = "progapr_punntaje_aprendizaje")
     private Integer progapr_punntaje_aprendizaje;
-
 }

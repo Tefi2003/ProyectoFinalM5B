@@ -24,11 +24,11 @@ public class Resultados implements Serializable {
     @ManyToOne
     @JoinColumn(name = "id_activ")
     private Actividad actividad;
-/*
+
     @JsonIgnore
     @OneToMany(mappedBy = "resultados")
     private List<ProgresoAprendizaje> progresoAprendizaje;
-*/
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_resultado")
@@ -40,4 +40,8 @@ public class Resultados implements Serializable {
     @Column(name = "re_fecha")
     private Timestamp re_fecha;
 
+    @PrePersist
+    public void prePersist() {
+        re_fecha = new Timestamp(System.currentTimeMillis());
+    }
 }

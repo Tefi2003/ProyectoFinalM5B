@@ -1,5 +1,6 @@
 package com.proyecto5.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -16,15 +17,14 @@ public class Progreso implements Serializable {
         @JsonIgnore
         @OneToMany(mappedBy = "progreso")
         private List<ProgresoAprendizaje> progresoAprendizaje;
-    /*
-        //RELACION CON Jugador
-        @JsonIgnore
-        @OneToOne(mappedBy = "progreso")
-        private Jugador jugador;
     */
+    //RELACION CON Jugador
+    @JsonIgnore
+    @OneToOne(mappedBy = "progreso")
+    private Jugador jugador;
 
     //FK PROGRESO APRENDIZAJE
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "id_progapre")
     private ProgresoAprendizaje progresoAprendizaje;
 
@@ -52,4 +52,6 @@ public class Progreso implements Serializable {
     public void prePersist() {
         prog_fecha_act = new Timestamp(System.currentTimeMillis());
     }
+
+
 }

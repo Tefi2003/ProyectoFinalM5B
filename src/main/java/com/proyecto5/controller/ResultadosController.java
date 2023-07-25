@@ -89,7 +89,7 @@ public class ResultadosController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		} else {
 			try {
-				act.setRe_fecha(actividadRb.getRe_fecha());
+				//act.setRe_fecha(actividadRb.getRe_fecha());
 				//act.setRe_hora(actividadRb.getRe_hora());
 				act.setRe_puntaje(actividadRb.getRe_puntaje());
 

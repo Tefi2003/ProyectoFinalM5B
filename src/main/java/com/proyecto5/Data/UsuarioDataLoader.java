@@ -4,6 +4,7 @@ import com.proyecto5.model.Roles;
 import com.proyecto5.model.Usuarios;
 import com.proyecto5.repository.RolesRepository;
 import com.proyecto5.repository.UsuariosRepository;
+import com.proyecto5.service.UsuariosServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -13,10 +14,12 @@ public class UsuarioDataLoader implements CommandLineRunner {
 
     private final UsuariosRepository usuariosRepository;
     private final RolesRepository rolesRepository;
+    private final UsuariosServiceImpl usuariosService;
 
-    public UsuarioDataLoader(UsuariosRepository usuariosRepository, RolesRepository rolesRepository) {
+    public UsuarioDataLoader(UsuariosRepository usuariosRepository, RolesRepository rolesRepository, UsuariosServiceImpl usuariosService) {
         this.usuariosRepository = usuariosRepository;
         this.rolesRepository = rolesRepository;
+        this.usuariosService = usuariosService;
     }
 
     @Override
@@ -37,15 +40,15 @@ public class UsuarioDataLoader implements CommandLineRunner {
         usuario1.setUsu_nivelacademico("1° - 3° año");
         usuario1.setUsu_fecha_nacimiento("2003-11-03");
         usuario1.setRoles(rol1);
-        usuariosRepository.save(usuario1);
+        usuariosService.saveCrypt(usuario1);
 
         Usuarios usuario2 = new Usuarios();
         usuario2.setUsu_nombre("Jugador defecto");
-        usuario2.setUsu_contra("player12345");
+        usuario2.setUsu_contra("Player12345");
         usuario2.setCorreo("player@gmail.com");
         usuario2.setUsu_nivelacademico("4° - 6° año");
         usuario2.setUsu_fecha_nacimiento("2008-12-23");
         usuario2.setRoles(rol2);
-        usuariosRepository.save(usuario2);
+        usuariosService.saveCrypt(usuario2);
     }
 }
