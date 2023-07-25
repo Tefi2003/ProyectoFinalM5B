@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.sql.Time;
 import java.sql.Timestamp;
 
 @Data
@@ -38,9 +37,6 @@ public class Progreso implements Serializable {
 
     @Column(name = "prog_puntaje_total")
     private Integer prog_puntaje_total;
-
-    @Column(name = "prog_hora_promd")
-    private Time prog_hora_promd;
 
     @Column(name = "prog_fecha_init")
     private String prog_fecha_init;

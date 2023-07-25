@@ -30,12 +30,12 @@ public class Actividad implements Serializable {
     @ManyToOne
     @JoinColumn(name = "id_nivel")
     private Niveles niveles;
-/*
+
     //RELACION CON JUGADOR    
     @JsonIgnore
     @OneToMany(mappedBy = "actividad")
     private List<Jugador> jugador;
-*/
+
 
     //RELACION CON RESULTADOS
     @JsonIgnore

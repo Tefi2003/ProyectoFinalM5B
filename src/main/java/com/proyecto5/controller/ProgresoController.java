@@ -2,7 +2,6 @@ package com.proyecto5.controller;
 
 import java.util.List;
 
-import com.proyecto5.model.Jugador;
 import com.proyecto5.service.ProgresoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -87,7 +86,7 @@ public class ProgresoController {
 			try {
 				pro.setProg_nivel(progreosRb.getProg_nivel());
 				pro.setProg_puntaje_total(progreosRb.getProg_puntaje_total());
-				pro.setProg_hora_promd(progreosRb.getProg_hora_promd());
+				//pro.setProg_hora_promd(progreosRb.getProg_hora_promd());
 				pro.setProg_fecha_init(progreosRb.getProg_fecha_init());
 				pro.setProg_fecha_act(progreosRb.getProg_fecha_act());
 				return new ResponseEntity<>(progresoServ.save(pro), HttpStatus.CREATED);
