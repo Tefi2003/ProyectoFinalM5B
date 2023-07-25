@@ -26,8 +26,15 @@ public class Recursos implements Serializable {
     @Column(name = "id_recurso")
     private Integer id_recurso;
 
+    @Column(name = "rec_nombre")
+    private String rec_nombre;
+
     @Column(name = "rec_enlaces")
     private String rec_enlaces;
+
+    @Column(name= "rec_img", columnDefinition= "LONGBLOB")
+    private String rec_img;
+
 
 }
 

@@ -90,7 +90,7 @@ public class ResultadosController {
 		} else {
 			try {
 				act.setRe_fecha(actividadRb.getRe_fecha());
-				act.setRe_hora(actividadRb.getRe_hora());
+				//act.setRe_hora(actividadRb.getRe_hora());
 				act.setRe_puntaje(actividadRb.getRe_puntaje());
 
 				Actividad actividad = actividadService.findById(actividadRb.getActividad().getId_activ());

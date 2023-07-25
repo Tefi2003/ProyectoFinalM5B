@@ -11,17 +11,23 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "progreso")
 public class Progreso implements Serializable {
-/*
-    //RELACION CON pro apre
-    @JsonIgnore
-    @OneToMany(mappedBy = "progreso")
-    private List<ProgresoAprendizaje> progresoAprendizaje;
-/*
-    //RELACION CON Jugador
-    @JsonIgnore
-    @OneToOne(mappedBy = "progreso")
-    private Jugador jugador;
-*/
+    /*
+        //RELACION CON pro apre
+        @JsonIgnore
+        @OneToMany(mappedBy = "progreso")
+        private List<ProgresoAprendizaje> progresoAprendizaje;
+    /*
+        //RELACION CON Jugador
+        @JsonIgnore
+        @OneToOne(mappedBy = "progreso")
+        private Jugador jugador;
+    */
+
+    //FK PROGRESO APRENDIZAJE
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_progapre")
+    private ProgresoAprendizaje progresoAprendizaje;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_progress")
@@ -42,4 +48,8 @@ public class Progreso implements Serializable {
     @Column(name = "prog_fecha_act")
     private Timestamp prog_fecha_act;
 
+    @PrePersist
+    public void prePersist() {
+        prog_fecha_act = new Timestamp(System.currentTimeMillis());
+    }
 }

@@ -36,11 +36,12 @@ public class Actividad implements Serializable {
     @OneToMany(mappedBy = "actividad")
     private List<Jugador> jugador;
 */
-/*
+
     //RELACION CON RESULTADOS
+    @JsonIgnore
     @OneToMany(mappedBy = "actividad")
     private List<Resultados> resultados;
-*/
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

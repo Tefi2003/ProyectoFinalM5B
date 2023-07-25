@@ -1,40 +1,36 @@
 package com.proyecto5.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 
 import lombok.Data;
 
 @Data
 @Entity
 @Table(name = "progresoAprendizaje")
-public class ProgresoAprendizaje {
-
+public class ProgresoAprendizaje implements Serializable {
+/*
     //FK PROGRESO
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_progress")
     private Progreso progreso;
-
+*/
     //FK TIPO APRENDIZAJE
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_tipo_apren")
     private TipoAprendizaje tipoAprendizaje;
 
-    
     @ManyToOne
     @JoinColumn(name = "id_resultado")
     private Resultados resultados;
-
+/*
+    @JsonIgnore
+    @OneToMany(mappedBy = "progresoAprendizaje")
+    private List<Progreso> progreso;
+*/
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_progapre")

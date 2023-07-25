@@ -4,8 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.proyecto5.model.Roles;
+import com.proyecto5.model.*;
 import com.proyecto5.service.EncryServiceImpl;
+import com.proyecto5.service.JugadorServiceImpl;
 import com.proyecto5.service.RolesServiceImpl;
 import com.proyecto5.service.UsuariosServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import com.proyecto5.model.Usuarios;
 
 @CrossOrigin(origins = {"*"})
 @RestController
@@ -29,6 +28,9 @@ public class UsuariosController {
 
     @Autowired
     private EncryServiceImpl encryService;
+
+    @Autowired
+    private JugadorServiceImpl jugadorService;
 
     public UsuariosController(UsuariosServiceImpl usuaServ) {
         this.usuaServ = usuaServ;
@@ -49,6 +51,7 @@ public class UsuariosController {
     public ResponseEntity<Map<String, String>> login(@PathVariable String correo, @PathVariable String password) {
         // Buscar el usuario en la base de datos por su nombre de usuario (o cualquier campo que sea único)
         Usuarios usuario = encryService.findUsuarioByCorrreo(correo);
+        Jugador perfilUsuario = jugadorService.getJugadorByUsuario(usuario);
 
         if (usuario == null) {
             // Usuario no encontrado, devolver mensaje de error
@@ -59,17 +62,30 @@ public class UsuariosController {
 
         // Obtener la contraseña encriptada almacenada en la base de datos para este usuario
         String storedPassword = usuario.getUsu_contra();
+        String id =String.valueOf(usuario.getId_usuario());
+        String nivelAcademico = usuario.getUsu_nivelacademico();
+        String fechaNa = usuario.getUsu_fecha_nacimiento();
+        String fechaIn = String.valueOf(usuario.getUsu_fecha_inic());
+        String nombre = usuario.getUsu_nombre();
 
         // Verificar la contraseña ingresada con la contraseña almacenada en la base de datos
         if (encryService.verifyPassword(password, storedPassword)) {
+
             // Inicio de sesión exitoso, devolver mensaje de éxito
             Map<String, String> response = new HashMap<>();
             response.put("message", "Inicio de sesión exitoso");
+            response.put("id_usuario", id);
+            response.put("usu_nombre", nombre);
+            response.put("correo", correo);
+            response.put("usu_nivelacademico", nivelAcademico);
+            response.put("usu_fecha_nacimiento", fechaNa);
+            response.put("usu_fecha_inic", fechaIn);
             return new ResponseEntity<>(response, HttpStatus.OK);
         } else {
             // Contraseña incorrecta, devolver mensaje de error
             Map<String, String> response = new HashMap<>();
             response.put("message", "Contraseña incorrecta");
+
             return new ResponseEntity<>(response, HttpStatus.OK);
         }
     }
@@ -110,7 +126,7 @@ public class UsuariosController {
     }
 
     /////////////////////////////la ultima
-    
+
     ////////////////////se obtiene el rol
     @PostMapping("/usuarios/create")
     public ResponseEntity<Usuarios> create(@RequestBody Usuarios usuario) {
@@ -226,6 +242,7 @@ public class UsuariosController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
     //Lista solo los usuarios que son jugadores sirva para la inactividad de usuarios y para
     //aunteticacion
     @GetMapping("/usuarios/list/Jugador")
@@ -241,9 +258,55 @@ public class UsuariosController {
 
     //Iniciar Sesión
     @GetMapping("/usuarios/{user}/{pass}")
-    public Usuarios show(@PathVariable String user,@PathVariable String pass) {
+    public Usuarios show(@PathVariable String user, @PathVariable String pass) {
         return usuaServ.findByUserPass(user, pass);
     }
 
+    @GetMapping("/usuarios/login3")
+    public ResponseEntity<?> loginPerfil(@RequestParam String correo, @RequestParam String password) {
+        // Buscar el usuario en la base de datos por su correo
+        Usuarios usuario = encryService.findUsuarioByCorrreo(correo);
+        Jugador perfilUsuario = jugadorService.getJugadorByUsuario(usuario);
 
+
+        if (usuario == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario no encontrado");
+        }
+
+        // Obtener la contraseña encriptada almacenada en la base de datos para este usuario
+        String storedPassword = usuario.getUsu_contra();
+
+        // Verificar la contraseña ingresada con la contraseña almacenada en la base de datos
+        if (encryService.verifyPassword(password, storedPassword)) {
+            // Si la autenticación es exitosa, obtiene el rol del usuario
+            int id = 0;
+            Roles rolUsuario = usuario.getRoles();
+            Usuarios juador = perfilUsuario.getUsuarios();
+
+            Progreso progreso = perfilUsuario.getProgreso();
+            ProgresoAprendizaje progresoA = progreso.getProgresoAprendizaje();
+
+            Actividad actividad = perfilUsuario.getActividad();
+
+            TipoAprendizaje tipoaprendizaje = actividad.getTipoAprendizaje();
+
+
+            // Devuelve un objeto JSON con la información completa del jugador, su rol, y datos relacionados
+            Map<String, Object> response = new HashMap<>();
+            response.put("id_usuario", id);
+            response.put("usu_correo", correo);
+            response.put("usuarios", usuario);
+            response.put("jugador", perfilUsuario);
+            response.put("rol", rolUsuario);
+            response.put("progreso", perfilUsuario);
+            response.put("progresoA", progreso);
+            response.put("tipoaprendizaje", tipoaprendizaje);
+            response.put("actividad", perfilUsuario);
+            //response.put("resultados", perfilUsuario);
+
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Contraseña incorrecta");
+        }
+    }
 }

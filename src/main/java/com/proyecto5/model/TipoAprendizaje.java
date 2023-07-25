@@ -2,12 +2,8 @@ package com.proyecto5.model;
 
 import java.io.Serializable;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 
 import lombok.Data;
 
@@ -21,12 +17,12 @@ public class TipoAprendizaje implements Serializable {
     @OneToMany(mappedBy = "tipoAprendizaje")
     private List<Actividad> actividad;
 */
-/*
+
     //RELACION CON PROGRESO_APRENDIZAJE
     @JsonIgnore
     @OneToOne(mappedBy = "tipoAprendizaje")
     private ProgresoAprendizaje progresoAprendizaje;
-*/
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_tipo_apren")
