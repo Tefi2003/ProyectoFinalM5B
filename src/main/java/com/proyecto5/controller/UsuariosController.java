@@ -51,7 +51,6 @@ public class UsuariosController {
     public ResponseEntity<Map<String, String>> login(@PathVariable String correo, @PathVariable String password) {
         // Buscar el usuario en la base de datos por su nombre de usuario (o cualquier campo que sea único)
         Usuarios usuario = encryService.findUsuarioByCorrreo(correo);
-        Jugador perfilUsuario = jugadorService.getJugadorByUsuario(usuario);
 
         if (usuario == null) {
             // Usuario no encontrado, devolver mensaje de error
@@ -140,23 +139,6 @@ public class UsuariosController {
         }
     }
 
-    @PostMapping("/usuario/crearcrypto")
-    public ResponseEntity<Usuarios> crearUsuario(@RequestBody Usuarios usuario) {
-        // Obtener la contraseña sin encriptar desde el objeto usuario
-        String password = usuario.getUsu_contra();
-
-        // Encriptar la contraseña antes de guardarla en la base de datos
-        String passwordEncriptada = encryService.encryPassword(password);
-
-        // Asignar la contraseña encriptada al objeto usuario antes de guardarlo
-        usuario.setUsu_contra(passwordEncriptada);
-
-        // Guardar el usuario en la base de datos
-        Usuarios nuevoUsuario = encryService.saveUser(usuario);
-
-        return new ResponseEntity<>(nuevoUsuario, HttpStatus.CREATED);
-    }
-
     @DeleteMapping("/usuarios/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable("id") Integer id) {
         try {
@@ -188,37 +170,6 @@ public class UsuariosController {
             } catch (Exception e) {
                 return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
-        }
-    }
-
-    @PutMapping("/usuarios/{correo}/password")
-    public ResponseEntity<String> updatePassword(@PathVariable String correo, @RequestBody String newPassword) {
-        // Buscar el usuario en la base de datos por su ID
-        Usuarios usuario = encryService.findUsuarioByCorrreo(correo);
-
-        if (usuario == null) {
-            return new ResponseEntity<>("Usuario no encontrado", HttpStatus.NOT_FOUND);
-        }
-
-        // Encriptar la nueva contraseña antes de almacenarla en la base de datos
-        String hashedPassword = encryService.encryPassword(newPassword);
-
-        // Actualizar la contraseña del usuario con la nueva contraseña encriptada
-        usuario.setUsu_contra(hashedPassword);
-
-        // Guardar el usuario actualizado en la base de datos
-        usuaServ.save(usuario);
-
-        return new ResponseEntity<>("Contraseña actualizada exitosamente", HttpStatus.OK);
-    }
-
-    @GetMapping("/usuarios/count/admin")
-    public ResponseEntity<Long> countUsuariosAdmin() {
-        try {
-            Long count = usuaServ.countUsuariosByRole(1);
-            return new ResponseEntity<>(count, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -256,18 +207,10 @@ public class UsuariosController {
         }
     }
 
-    //Iniciar Sesión
-    @GetMapping("/usuarios/{user}/{pass}")
-    public Usuarios show(@PathVariable String user, @PathVariable String pass) {
-        return usuaServ.findByUserPass(user, pass);
-    }
-
-    @GetMapping("/usuarios/login3")
-    public ResponseEntity<?> loginPerfil(@RequestParam String correo, @RequestParam String password) {
+    @GetMapping("/usuarios/loginR")
+    public ResponseEntity<?> loginRelacion(@RequestParam String correo, @RequestParam String password) {
         // Buscar el usuario en la base de datos por su correo
         Usuarios usuario = encryService.findUsuarioByCorrreo(correo);
-        Jugador perfilUsuario = jugadorService.getJugadorByUsuario(usuario);
-
 
         if (usuario == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario no encontrado");
@@ -279,30 +222,39 @@ public class UsuariosController {
         // Verificar la contraseña ingresada con la contraseña almacenada en la base de datos
         if (encryService.verifyPassword(password, storedPassword)) {
             // Si la autenticación es exitosa, obtiene el rol del usuario
-            int id = 0;
             Roles rolUsuario = usuario.getRoles();
-            Usuarios juador = perfilUsuario.getUsuarios();
-
-            Progreso progreso = perfilUsuario.getProgreso();
-            ProgresoAprendizaje progresoA = progreso.getProgresoAprendizaje();
-
-            Actividad actividad = perfilUsuario.getActividad();
-
-            TipoAprendizaje tipoaprendizaje = actividad.getTipoAprendizaje();
-
-
-            // Devuelve un objeto JSON con la información completa del jugador, su rol, y datos relacionados
+            String nombre= usuario.getUsu_nombre();
+            // Devuelve un objeto JSON con la información básica del usuario y su rol
             Map<String, Object> response = new HashMap<>();
-            response.put("id_usuario", id);
+            response.put("id_usuario", usuario.getId_usuario());
             response.put("usu_correo", correo);
-            response.put("usuarios", usuario);
-            response.put("jugador", perfilUsuario);
             response.put("rol", rolUsuario);
-            response.put("progreso", perfilUsuario);
-            response.put("progresoA", progreso);
-            response.put("tipoaprendizaje", tipoaprendizaje);
-            response.put("actividad", perfilUsuario);
-            //response.put("resultados", perfilUsuario);
+
+            // Cargar relaciones específicas según el tipo de usuario (administrador o jugador)
+            if (rolUsuario.getId_rol() == 1) {
+                // Si es administrador, carga las relaciones específicas para el administrador
+                // Por ejemplo, si el administrador tiene roles adicionales:
+                // response.put("rolesAdicionales", obtenerRolesAdicionales(usuario));
+                // ...
+                response.put("rol", rolUsuario);
+                response.put("usu_nombre", nombre);
+                // Puedes agregar aquí otras relaciones específicas para el administrador
+            } else if (rolUsuario.getId_rol() == 2) {
+                // Si es jugador, carga las relaciones específicas para el jugador
+                Jugador perfilUsuario = jugadorService.getJugadorByUsuario(usuario);
+                Progreso progreso = perfilUsuario.getProgreso();
+                //ProgresoAprendizaje progresoA = progreso.getProgresoAprendizaje();
+                Actividad actividad = perfilUsuario.getActividad();
+                TipoAprendizaje tipoAprendizaje = actividad.getTipoAprendizaje();
+                response.put("rol", rolUsuario);
+                response.put("jugador", perfilUsuario);
+                response.put("progreso", progreso);
+                //response.put("progresoA", progresoA);
+                response.put("tipoaprendizaje", tipoAprendizaje);
+                response.put("actividad", actividad);
+
+                // Puedes agregar aquí otras relaciones específicas para el jugador
+            }
 
             return ResponseEntity.ok(response);
         } else {
