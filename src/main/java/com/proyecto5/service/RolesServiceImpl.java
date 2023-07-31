@@ -17,4 +17,8 @@ public class RolesServiceImpl extends GenericServiceImpl<Roles, Integer> impleme
         return rolesRepository;
     }
 
+    @Override
+    public Integer findMaxId() {
+        return null;
+    }
 }

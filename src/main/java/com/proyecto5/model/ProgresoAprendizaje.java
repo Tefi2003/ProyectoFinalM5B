@@ -19,7 +19,7 @@ public class ProgresoAprendizaje implements Serializable {
     private Progreso progreso;
 */
     //FK TIPO APRENDIZAJE
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "id_tipo_apren")
     private TipoAprendizaje tipoAprendizaje;
 

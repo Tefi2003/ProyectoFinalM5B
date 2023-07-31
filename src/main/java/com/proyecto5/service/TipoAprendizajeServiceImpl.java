@@ -18,4 +18,8 @@ public class TipoAprendizajeServiceImpl extends GenericServiceImpl<TipoAprendiza
     }
 
 
+    @Override
+    public Integer findMaxId() {
+        return null;
+    }
 }

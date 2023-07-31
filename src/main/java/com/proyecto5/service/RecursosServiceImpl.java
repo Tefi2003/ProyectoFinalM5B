@@ -17,4 +17,8 @@ public class RecursosServiceImpl extends GenericServiceImpl<Recursos, Integer> i
         return progresoRepository;
     }
 
+    @Override
+    public Integer findMaxId() {
+        return null;
+    }
 }

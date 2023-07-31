@@ -21,4 +21,9 @@ public class JugadorServiceImpl extends GenericServiceImpl<Jugador, Integer> imp
     public Jugador getJugadorByUsuario(Usuarios usuario) {
         return jugadorRepository.findByUsuarios(usuario);
     }
+
+    @Override
+    public Integer findMaxId() {
+        return jugadorRepository.findMaxId();
+    }
 }

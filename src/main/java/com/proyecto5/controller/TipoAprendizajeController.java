@@ -1,8 +1,11 @@
 package com.proyecto5.controller;
 
 import java.util.List;
+import java.util.Map;
 
+import com.proyecto5.model.Actividad;
 import com.proyecto5.repository.TipoAprendizajeRepository;
+import com.proyecto5.service.ActividadServiceImpl;
 import com.proyecto5.service.TipoAprendizajeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -29,6 +32,7 @@ public class TipoAprendizajeController {
 	private TipoAprendizajeServiceImpl tipoServ;
 	@Autowired
 	private final TipoAprendizajeRepository tipoAprendizajeRepository;
+
 
 	@Autowired
 	public TipoAprendizajeController(TipoAprendizajeRepository tipoAprendizajeRepository) {
@@ -101,9 +105,9 @@ public class TipoAprendizajeController {
 		}
 	}
 
-
 	@GetMapping("/tipoapren/count")
 	public Long contador(){
 		return tipoAprendizajeRepository.count();
- 	}
+	}
+
 }

@@ -1,6 +1,8 @@
 package com.proyecto5.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.proyecto5.model.Actividad;
 import com.proyecto5.service.ActividadServiceImpl;
@@ -52,9 +54,25 @@ public class ResultadosController {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
-	
-	
+
+	@GetMapping("/resultados/latest")
+	public ResponseEntity<Map<String, Integer>> getLatestActividad() {
+		try {
+			Integer maxId = usuaServ.findMaxId();
+			Resultados res = usuaServ.findById(maxId);
+
+			if (maxId == null) {
+				return ResponseEntity.noContent().build(); // 204 No Content
+			} else {
+				Map<String, Integer> response = new HashMap<>();
+				response.put("id_resultado", maxId);
+				response.put("puntaje", res.getRe_puntaje());
+				return ResponseEntity.ok(response); // 200 OK
+			}
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 
 	@PostMapping("/resultados/create")
 	public ResponseEntity<Resultados> create(@RequestBody Resultados actividad) {

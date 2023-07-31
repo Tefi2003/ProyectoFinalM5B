@@ -1,6 +1,8 @@
 package com.proyecto5.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.proyecto5.service.ProgresoAprendizajeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,9 +59,26 @@ public class ProgresoAprendizajeController {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
-	
-	
+
+	@GetMapping("/progresoAprendizaje/latest")
+	public ResponseEntity<Map<String, Integer>> getLatestActividad() {
+		try {
+			Integer maxId = proaprServ.findMaxId();
+			ProgresoAprendizaje progresoAprendizaje = new ProgresoAprendizaje();
+			if (maxId == null) {
+				return ResponseEntity.noContent().build(); // 204 No Content
+			} else {
+				Map<String, Integer> response = new HashMap<>();
+				response.put("id_proa", maxId);
+				response.put("puntaje", progresoAprendizaje.getProgapr_punntaje_aprendizaje());
+
+				return ResponseEntity.ok(response); // 200 OK
+			}
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
 
 	@PostMapping("/progresoAprendizaje/create")
 	public ResponseEntity<ProgresoAprendizaje> create(@RequestBody ProgresoAprendizaje proapre) {
@@ -70,8 +89,8 @@ public class ProgresoAprendizajeController {
 		}
 
 	}
-	
-	
+
+
 	
 
 	@DeleteMapping("/progresoAprendizaje/delete/{id}")

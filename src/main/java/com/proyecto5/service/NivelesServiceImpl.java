@@ -17,4 +17,8 @@ public class NivelesServiceImpl extends GenericServiceImpl<Niveles, Integer> imp
         return nivelesRepository;
     }
 
+    @Override
+    public Integer findMaxId() {
+        return null;
+    }
 }

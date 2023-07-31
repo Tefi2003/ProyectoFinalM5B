@@ -42,6 +42,10 @@ public class Actividad implements Serializable {
     @OneToMany(mappedBy = "actividad")
     private List<Resultados> resultados;
 
+    //RELACION CON PLAYER
+    @JsonIgnore
+    @OneToMany(mappedBy = "actividad")
+    private List<Jugador> jugadores;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

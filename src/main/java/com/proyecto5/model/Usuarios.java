@@ -43,9 +43,8 @@ public class Usuarios implements Serializable {
     @Column(name = "usu_fecha_inic", nullable = false)
     private Timestamp usu_fecha_inic;
     
-    @Column(name = "usu_fecha_nacimiento", nullable = false)
+    @Column(name = "usu_fecha_nacimiento")
     private String usu_fecha_nacimiento;
-
 
     //Generacion de usu_fecha_inic cuando se cree una tabla
     @PrePersist

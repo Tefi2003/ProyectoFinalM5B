@@ -1,12 +1,15 @@
 package com.proyecto5.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.proyecto5.service.ProgresoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,8 +50,25 @@ public class ProgresoController {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
-	
+
+	@GetMapping("/progreso/latest")
+	public ResponseEntity<Map<String, Integer>> getLatestActividad() {
+		try {
+			Integer maxId = progresoServ.findMaxId();
+			Progreso prog = progresoServ.findById(maxId);
+
+			if (maxId == null) {
+				return ResponseEntity.noContent().build(); // 204 No Content
+			} else {
+				Map<String, Integer> response = new HashMap<>();
+				response.put("id_prog", maxId);
+				response.put("puntaje", prog.getProg_puntaje_total());
+				return ResponseEntity.ok(response); // 200 OK
+			}
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 	
 
 	@PostMapping("/progreso/create")
@@ -86,9 +106,7 @@ public class ProgresoController {
 			try {
 				pro.setProg_nivel(progreosRb.getProg_nivel());
 				pro.setProg_puntaje_total(progreosRb.getProg_puntaje_total());
-				//pro.setProg_hora_promd(progreosRb.getProg_hora_promd());
 				pro.setProg_fecha_init(progreosRb.getProg_fecha_init());
-				pro.setProg_fecha_act(progreosRb.getProg_fecha_act());
 				return new ResponseEntity<>(progresoServ.save(pro), HttpStatus.CREATED);
 			} catch (Exception e) {
 				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

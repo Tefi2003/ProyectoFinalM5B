@@ -32,6 +32,9 @@ public class Recursos implements Serializable {
     @Column(name = "rec_enlaces")
     private String rec_enlaces;
 
+    @Column(name = "rec_lec", columnDefinition = "TEXT", length = 500)
+    private String rec_lec;
+
     @Column(name= "rec_img", columnDefinition= "LONGBLOB")
     private String rec_img;
 

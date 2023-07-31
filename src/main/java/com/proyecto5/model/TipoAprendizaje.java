@@ -1,6 +1,7 @@
 package com.proyecto5.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -20,8 +21,8 @@ public class TipoAprendizaje implements Serializable {
 
     //RELACION CON PROGRESO_APRENDIZAJE
     @JsonIgnore
-    @OneToOne(mappedBy = "tipoAprendizaje")
-    private ProgresoAprendizaje progresoAprendizaje;
+    @OneToMany(mappedBy = "tipoAprendizaje")
+    private List<ProgresoAprendizaje> ProgresoAprendizaje;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

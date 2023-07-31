@@ -59,7 +59,7 @@ public class UsuariosController {
             return new ResponseEntity<>(response, HttpStatus.OK);
         }
 
-        // Obtener la contraseña encriptada almacenada en la base de datos para este usuario
+        // Obtener los datos de este usuario
         String storedPassword = usuario.getUsu_contra();
         String id =String.valueOf(usuario.getId_usuario());
         String nivelAcademico = usuario.getUsu_nivelacademico();
@@ -177,6 +177,16 @@ public class UsuariosController {
     public ResponseEntity<Long> countUsuariosJugador() {
         try {
             Long count = usuaServ.countUsuariosByRole(2);
+            return new ResponseEntity<>(count, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/usuarios/count/admin")
+    public ResponseEntity<Long> countUsuariosAdmin() {
+        try {
+            Long count = usuaServ.countUsuariosByRole(1);
             return new ResponseEntity<>(count, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

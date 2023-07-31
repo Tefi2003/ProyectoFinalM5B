@@ -51,4 +51,14 @@ public class Jugador implements Serializable {
     private String player_nombre;
 
 
+    @Override
+    public String toString() {
+        return "Jugador{" +
+                "usuarios=" + usuarios.getId_usuario() +
+                ", actividad=" + actividad.getId_activ() +
+                ", progreso=" + progreso.getId_progress() +
+                ", player_id=" + player_id +
+                ", player_nombre='" + player_nombre + '\'' +
+                '}';
+    }
 }

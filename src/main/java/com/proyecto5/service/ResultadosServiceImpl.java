@@ -17,4 +17,8 @@ public class ResultadosServiceImpl extends GenericServiceImpl<Resultados, Intege
         return resultadosRepository;
     }
 
+    @Override
+    public Integer findMaxId() {
+        return resultadosRepository.findMaxId();
+    }
 }

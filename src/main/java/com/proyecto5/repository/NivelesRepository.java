@@ -6,4 +6,5 @@ import com.proyecto5.model.Niveles;
 
 public interface NivelesRepository extends JpaRepository<Niveles, Integer>{
 
+
 }

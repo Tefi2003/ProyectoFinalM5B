@@ -1,6 +1,7 @@
 package com.proyecto5.controller;
 import java.util.List;
 
+import com.proyecto5.model.Actividad;
 import com.proyecto5.service.RecursosServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -50,6 +51,22 @@ public class RecursosController {
 	public ResponseEntity<Recursos> search(@PathVariable("id") Integer id) {
 		try {
 			return new ResponseEntity<>(recursosServ.findById(id), HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@GetMapping("/recursos/buscarlec/{id}")
+	public ResponseEntity<Map<String, String>> searchLectura(@PathVariable("id") Integer id) {
+		try {
+			Recursos rec = recursosServ.findById(id);
+			if (rec == null) {
+				return ResponseEntity.noContent().build(); // 204 No Content
+			} else {
+				Map<String, String> response = new HashMap<>();
+				response.put("rec_lec", rec.getRec_lec());
+				return ResponseEntity.ok(response); // 200 OK
+			}
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}

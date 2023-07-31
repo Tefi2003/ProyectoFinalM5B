@@ -1,14 +1,18 @@
 package com.proyecto5.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.proyecto5.model.Niveles;
 import com.proyecto5.model.Recursos;
 import com.proyecto5.model.TipoAprendizaje;
+import com.proyecto5.repository.ActividadRepository;
 import com.proyecto5.service.ActividadServiceImpl;
 import com.proyecto5.service.NivelesServiceImpl;
 import com.proyecto5.service.RecursosServiceImpl;
 import com.proyecto5.service.TipoAprendizajeServiceImpl;
+import com.sun.jdi.PrimitiveValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -43,6 +47,9 @@ public class ActividadController {
 	@Autowired
 	private NivelesServiceImpl nivelesService;
 
+	@Autowired
+	private ActividadRepository actividadRepository;
+
 	public ActividadController(ActividadServiceImpl actividadServ) {
 		this.actividadServ = actividadServ;
 	}
@@ -58,6 +65,24 @@ public class ActividadController {
 
 	}
 
+	@GetMapping("/actividad/latest")
+	public ResponseEntity<Map<String, Integer>> getLatestActividad() {
+		try {
+			Integer maxId = actividadServ.findMaxId();
+			Actividad act = actividadServ.findById(maxId);
+
+			if (maxId == null) {
+				return ResponseEntity.noContent().build(); // 204 No Content
+			} else {
+				Map<String, Integer> response = new HashMap<>();
+				response.put("id_activ", maxId);
+				response.put("puntaje", act.getAct_puntaje_alcanzado());
+				return ResponseEntity.ok(response); // 200 OK
+			}
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 
 	@GetMapping("/actividad/search/{id}")
 	public ResponseEntity<Actividad> search(@PathVariable("id") Integer id) {
@@ -122,10 +147,30 @@ public class ActividadController {
 		}
 	}
 
-	/*
-	@Override
-    public CrudRepository<TipoAprendizaje, Integer> getDao() {
-        return tipoAprendizajeRepository;
+	@GetMapping("/actividades/count")
+	public Long contador(){
+		return actividadRepository.count();
 	}
-	 */
+
+
+	@GetMapping("/tipoapren/{id}")
+	public ResponseEntity<Map<String, Object>> actividadesAsignadas(@PathVariable("id") Integer id) {
+		try {
+			List<Actividad> actividadesAsignadas = actividadRepository.findByTipoAprendizajeId(id);
+			if (actividadesAsignadas.isEmpty()) {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
+
+			// Obtener el conteo de actividades asignadas
+			int conteoActividadesAsignadas = actividadesAsignadas.size();
+
+			// Crear un mapa para almacenar el resultado
+			Map<String, Object> resultado = new HashMap<>();
+			resultado.put("conteoActividadesAsignadas", conteoActividadesAsignadas);
+
+			return new ResponseEntity<>(resultado, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 }

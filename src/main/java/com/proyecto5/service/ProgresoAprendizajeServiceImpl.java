@@ -19,4 +19,8 @@ public class ProgresoAprendizajeServiceImpl extends GenericServiceImpl<ProgresoA
         return progresoAprendizajeRepository;
     }
 
+    @Override
+    public Integer findMaxId() {
+        return progresoAprendizajeRepository.findMaxId();
+    }
 }

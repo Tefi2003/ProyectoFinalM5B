@@ -65,17 +65,17 @@ public class DataLoaderCarga implements CommandLineRunner {
 
         TipoAprendizaje tipoAprendizaje1 = new TipoAprendizaje();
         tipoAprendizaje1.setTapr_nombre("Aprendizaje con juegos");
-        tipoAprendizaje1.setTapr_progreso(0);
+        tipoAprendizaje1.setTapr_progreso(7);
         tipoAprendizajeRepository.save(tipoAprendizaje1);
 
         TipoAprendizaje tipoAprendizaje2 = new TipoAprendizaje();
         tipoAprendizaje2.setTapr_nombre("Aprendizaje con lógica");
-        tipoAprendizaje2.setTapr_progreso(0);
+        tipoAprendizaje2.setTapr_progreso(10);
         tipoAprendizajeRepository.save(tipoAprendizaje2);
 
         TipoAprendizaje tipoAprendizaje3 = new TipoAprendizaje();
         tipoAprendizaje3.setTapr_nombre("Aprendizaje comprensivo");
-        tipoAprendizaje3.setTapr_progreso(0);
+        tipoAprendizaje3.setTapr_progreso(30);
         tipoAprendizajeRepository.save(tipoAprendizaje3);
 
         Niveles nv1 = new Niveles();
@@ -92,6 +92,7 @@ public class DataLoaderCarga implements CommandLineRunner {
 
         Recursos recursos1 = new Recursos();
         recursos1.setRec_nombre("Recurso1");
+        recursos1.setRec_lec("Cada mañana, Alejandro se levanta para ir al colegio. Desayuna tostadas con mantequilla y mermelada y un gran vaso de leche con cacao calentito. Su madre le recuerda las cosas que debe llevar en su mochila y su padre le acerca al colegio en coche para que no se le haga tarde y llegue siempre puntual, aunque los días de lluvia esto se hace muy difícil por la cantidad de coches que se agolpan en las calles de su ciudad. Y es que la puntualidad, según los padres de Alejandro, es uno de los mayores signos de educación que hay.");
         recursosRepository.save(recursos1);
 
         Actividad actividad1 = new Actividad();
@@ -124,6 +125,21 @@ public class DataLoaderCarga implements CommandLineRunner {
         actividad2.setTipoAprendizaje(tipoAprendizaje3);
         actividadRepository.save(actividad2);
 
+        Actividad actividad3 = new Actividad();
+        actividad3.setAct_nombre("Cuestionario y cuento");
+        actividad3.setAct_descripcion("Cuestionario de preguntas sobre un texto determinado");
+        actividad3.setAct_dificultad("MEDIO");
+        actividad3.setAct_puntaje_max(25);
+        actividad3.setAct_puntaje_min(5);
+        actividad3.setAct_puntaje_alcanzado(5);
+        actividad3.setAct_aprendizaje("Comprensión lectora y atención");
+        actividad3.setAct_estado(true);
+        actividad3.setAct_respuesta("Esperando respuesta");
+        actividad3.setNiveles(nv2);
+        actividad3.setRecursos(recursos1);
+        actividad3.setTipoAprendizaje(tipoAprendizaje3);
+        actividadRepository.save(actividad3);
+
         Resultados resultados = new Resultados();
         resultados.setRe_puntaje(5);
         resultados.setActividad(actividad1);
@@ -136,10 +152,24 @@ public class DataLoaderCarga implements CommandLineRunner {
         progresoAprendizaje.setProgapr_punntaje_aprendizaje(0);
         progresoAprendizajeRepository.save(progresoAprendizaje);
 
+        ProgresoAprendizaje progresoAprendizaje2 = new ProgresoAprendizaje();
+        progresoAprendizaje2.setTipoAprendizaje(tipoAprendizaje2);
+        progresoAprendizaje2.setResultados(resultados);
+        progresoAprendizaje2.setProgapr_nombre("Aprendizaje de juegos");
+        progresoAprendizaje2.setProgapr_punntaje_aprendizaje(0);
+        progresoAprendizajeRepository.save(progresoAprendizaje2);
+
+        ProgresoAprendizaje progresoAprendizaje3 = new ProgresoAprendizaje();
+        progresoAprendizaje3.setTipoAprendizaje(tipoAprendizaje3);
+        progresoAprendizaje3.setResultados(resultados);
+        progresoAprendizaje3.setProgapr_nombre("Aprendizaje de juegos");
+        progresoAprendizaje3.setProgapr_punntaje_aprendizaje(0);
+        progresoAprendizajeRepository.save(progresoAprendizaje3);
+
         Progreso progreso = new Progreso();
-        progreso.setProgresoAprendizaje(progresoAprendizaje);
+        progreso.setProgresoAprendizaje(progresoAprendizaje2);
         progreso.setProg_fecha_init("2023-05-14");
-        progreso.setProg_puntaje_total(20);
+        progreso.setProg_puntaje_total(25);
         progreso.setProg_nivel(1);
         progresoRepository.save(progreso);
 

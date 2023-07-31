@@ -21,4 +21,8 @@ public class ActividadServiceImpl extends GenericServiceImpl<Actividad, Integer>
         return actividadRepository;
     }
 
+    @Override
+    public Integer findMaxId() {
+        return actividadRepository.findMaxId();
+    }
 }

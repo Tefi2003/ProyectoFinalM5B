@@ -17,4 +17,8 @@ public class ProgresoServiceImpl extends GenericServiceImpl<Progreso, Integer> i
         return progresoRepository;
     }
 
+    @Override
+    public Integer findMaxId() {
+        return progresoRepository.findMaxId();
+    }
 }
