@@ -4,9 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.proyecto5.model.ProgresoAprendizaje;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-
-import java.util.List;
 
 public interface ProgresoAprendizajeRepository extends JpaRepository<ProgresoAprendizaje, Integer>{
     @Query("SELECT MAX(a.id_progapre) FROM ProgresoAprendizaje a")

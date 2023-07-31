@@ -1,7 +1,6 @@
 package com.proyecto5.controller;
 import java.util.List;
 
-import com.proyecto5.model.Actividad;
 import com.proyecto5.service.RecursosServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
